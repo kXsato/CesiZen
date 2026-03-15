@@ -6,24 +6,34 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class UserFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $hasher) {}
+    public function __construct(private UserPasswordHasherInterface $hasher)
+    {
+    }
 
     public function load(ObjectManager $manager): void
     {
-        $user = new User();
-        $user->setUsername('user');
-        $user->setRoles(['ROLE_USER']);
-        $user->setPassword($this->hasher->hashPassword($user, 'password'));
-        $manager->persist($user);
+        $data = Yaml::parseFile(__DIR__ . '/../../config/fixtures/users.yaml');
 
-        $admin = new User();
-        $admin->setUsername('admin');
-        $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setPassword($this->hasher->hashPassword($admin, 'password'));
-        $manager->persist($admin);
+        foreach ($data['users'] as $userData) {
+            $user = new User();
+            $user->setEmail($userData['email']);
+            $user->setRoles($userData['roles']);
+            $user->setUserName($userData['userName']);
+            $user->setBirthDate(new \DateTime($userData['birthDate']));
+            $user->setRegistrationDate(new \DateTime($userData['registrationDate']));
+            $user->setPassword($this->hasher->hashPassword($user, $userData['password']));
+
+            if (!empty($userData['lastLogin'])) {
+                $user->setLastLogin(new \DateTime($userData['lastLogin']));
+            }
+
+            $manager->persist($user);
+            $this->addReference('user_' . $userData['userName'], $user);
+        }
 
         $manager->flush();
     }

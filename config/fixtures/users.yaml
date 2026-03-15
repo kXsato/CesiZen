@@ -1,0 +1,16 @@
+users:
+    - email: user@gmail.com
+      userName: user
+      roles: ["ROLE_USER"]
+      password: "user123"
+      birthDate: "1995-06-15"
+      registrationDate: "2024-01-10"
+      lastLogin: "2026-03-14"
+
+    - email: admin@gmail.com
+      userName: admin
+      roles: ["ROLE_ADMIN"]
+      password: "admin123"
+      birthDate: "1990-03-22"
+      registrationDate: "2024-01-01"
+      lastLogin: "2026-03-15"
