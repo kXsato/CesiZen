@@ -2,13 +2,19 @@ import { initSoundControls } from "./sound.js";
 
 const LEVEL_LOW = 15;
 const LEVEL_HIGH = 85;
+const SESSION_DURATION = 180;
 
 let activeTimer = null;
+let sessionTimer = null;
 
 document.addEventListener("turbo:before-render", () => {
     if (activeTimer) {
         clearInterval(activeTimer);
         activeTimer = null;
+    }
+    if (sessionTimer) {
+        clearInterval(sessionTimer);
+        sessionTimer = null;
     }
 });
 
@@ -20,12 +26,21 @@ document.addEventListener("turbo:load", () => {
     const btnStart = document.getElementById("btn-start");
     const btnStop = document.getElementById("btn-stop");
 
+    const sessionTimerEl = document.getElementById("session-timer");
+    const sessionCountdown = document.getElementById("session-countdown");
+
     if (container && water && phaseLabel && phaseCountdown && btnStart && btnStop) {
-        init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop);
+        init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop, sessionTimerEl, sessionCountdown);
     }
 });
 
-function init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop) {
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+function init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop, sessionTimerEl, sessionCountdown) {
     const INSPIRATION = parseInt(container.dataset.inspiration, 10);
     const APNEA = parseInt(container.dataset.apnea, 10);
     const EXPIRATION = parseInt(container.dataset.expiration, 10);
@@ -41,6 +56,36 @@ function init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop) {
     phases.push({ label: "Expirez", duration: EXPIRATION, waterTo: LEVEL_LOW });
 
     let running = false;
+
+    function stopSession() {
+        running = false;
+        clearInterval(activeTimer);
+        activeTimer = null;
+        clearInterval(sessionTimer);
+        sessionTimer = null;
+        btnStop.classList.add("hidden");
+        btnStart.classList.remove("hidden");
+        sessionTimerEl.style.display = "none";
+        phaseLabel.textContent = "—";
+        phaseCountdown.textContent = "—";
+        water.style.transition = "height 0.6s ease";
+        water.style.height = LEVEL_LOW + "%";
+        sound.reset();
+    }
+
+    function startSessionTimer() {
+        let remaining = SESSION_DURATION;
+        sessionCountdown.textContent = formatTime(remaining);
+        sessionTimerEl.style.display = "flex";
+
+        sessionTimer = setInterval(() => {
+            remaining--;
+            sessionCountdown.textContent = formatTime(remaining);
+            if (remaining <= 0) {
+                stopSession();
+            }
+        }, 1000);
+    }
 
     function setWater(percent, durationSec) {
         water.style.transition = `height ${durationSec}s ease-in-out`;
@@ -83,19 +128,11 @@ function init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop) {
         running = true;
         btnStart.classList.add("hidden");
         btnStop.classList.remove("hidden");
+        startSessionTimer();
         runCycle();
     });
 
     btnStop.addEventListener("click", () => {
-        running = false;
-        clearInterval(activeTimer);
-        activeTimer = null;
-        btnStop.classList.add("hidden");
-        btnStart.classList.remove("hidden");
-        phaseLabel.textContent = "—";
-        phaseCountdown.textContent = "—";
-        water.style.transition = "height 0.6s ease";
-        water.style.height = LEVEL_LOW + "%";
-        sound.reset();
+        stopSession();
     });
 }
