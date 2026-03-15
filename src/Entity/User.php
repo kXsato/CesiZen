@@ -92,7 +92,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
+        $roles = array_values(array_filter($roles, fn($r) => $r !== 'ROLE_USER'));
+        $this->roles = !empty($roles) ? [$roles[0]] : [];
 
         return $this;
     }
