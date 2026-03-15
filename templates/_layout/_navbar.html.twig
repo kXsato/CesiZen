@@ -18,15 +18,15 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                 </svg>
             </button>
-            <ul class="hidden group-hover:block absolute left-0 top-full bg-base-100 rounded-box shadow w-52 p-2 z-50">
+            <ul class="hidden group-hover:block group-focus-within:block absolute left-0 top-full bg-base-100 rounded-box shadow w-52 p-2 z-50">
                 {% for item in menu_items %}
                     {% if item.children|length > 0 %}
                         <li class="group/sub relative">
-                            <a class="flex justify-between items-center">
+                            <a tabindex="0" class="flex justify-between items-center cursor-pointer">
                                 {{ item.label }}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform group-hover/sub:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform group-hover/sub:rotate-90 group-focus-within/sub:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                             </a>
-                            <ul class="hidden group-hover/sub:block absolute left-0 top-full bg-base-100 rounded-box shadow w-48 p-2 z-50">
+                            <ul class="hidden group-hover/sub:block group-focus-within/sub:block absolute left-0 top-full bg-base-100 rounded-box shadow w-48 p-2 z-50">
                                 {% for child in item.children %}
                                     {% if child.isActive %}
                                         <li><a href="{{ nav.menuItemUrl(child) }}">{{ child.label }}</a></li>
