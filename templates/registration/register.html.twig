@@ -1,19 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Créer un compte{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="hero bg-base-200 flex-1">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold">Créer un compte</h1>
+            <p class="py-6 w-2/3">
+                Rejoignez CesiZen et accédez à votre espace personnel.
+            </p>
+        </div>
+        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+            <div class="card-body">
+                {{ form_errors(registrationForm) }}
 
-    {{ form_errors(registrationForm) }}
+                {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                <fieldset class="fieldset">
+                    <label class="label">{{ form_label(registrationForm.email) }}</label>
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'input w-full'}}) }}
+                    {{ form_errors(registrationForm.email) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                    <label class="label">{{ form_label(registrationForm.userName) }}</label>
+                    {{ form_widget(registrationForm.userName, {'attr': {'class': 'input w-full'}}) }}
+                    {{ form_errors(registrationForm.userName) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                    <label class="label">{{ form_label(registrationForm.birthDate) }}</label>
+                    {{ form_widget(registrationForm.birthDate, {'attr': {'class': 'input w-full'}}) }}
+                    {{ form_errors(registrationForm.birthDate) }}
+
+                    <label class="label">{{ form_label(registrationForm.plainPassword.first) }}</label>
+                    {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'input w-full'}}) }}
+                    {{ form_errors(registrationForm.plainPassword.first) }}
+
+                    <label class="label">{{ form_label(registrationForm.plainPassword.second) }}</label>
+                    {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'input w-full'}}) }}
+                    {{ form_errors(registrationForm.plainPassword.second) }}
+
+                    <button type="submit" class="btn btn-neutral mt-4 w-full">Créer mon compte</button>
+
+                    <p class="text-center text-sm mt-4">
+                        Déjà un compte ?
+                        <a href="{{ path('app_login') }}" class="link link-hover font-semibold">Se connecter</a>
+                    </p>
+                </fieldset>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
