@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercices de respiration{% endblock %}
+
+{% block body %}
+<div class="flex-1 bg-base-200 py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold mb-3">Exercices de respiration</h1>
+            <p class="text-base-content/70">Choisissez un exercice et prenez quelques minutes pour vous recentrer.</p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% for exercise in exercises %}
+                <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
+                    <div class="card-body items-center text-center">
+                        <div class="radial-progress text-primary mb-4" style="--value:100; --size:5rem; --thickness:4px;" aria-hidden="true">
+                            <span class="text-lg font-bold">{{ exercise.name }}</span>
+                        </div>
+
+                        <h2 class="card-title">{{ exercise.name }}</h2>
+
+                        <div class="flex gap-3 my-3 flex-wrap justify-center">
+                            <div class="badge badge-outline gap-1">
+                                <span class="font-semibold">{{ exercise.inspirationDuration }}s</span>
+                                <span class="text-xs opacity-70">inspiration</span>
+                            </div>
+                            {% if exercise.apneaDuration > 0 %}
+                                <div class="badge badge-outline gap-1">
+                                    <span class="font-semibold">{{ exercise.apneaDuration }}s</span>
+                                    <span class="text-xs opacity-70">apnée</span>
+                                </div>
+                            {% endif %}
+                            <div class="badge badge-outline gap-1">
+                                <span class="font-semibold">{{ exercise.expirationDuration }}s</span>
+                                <span class="text-xs opacity-70">expiration</span>
+                            </div>
+                        </div>
+
+                        {% if exercise.description %}
+                            <p class="text-sm text-base-content/60 mb-4">{{ exercise.description }}</p>
+                        {% endif %}
+
+                        <div class="card-actions">
+                            <a href="{{ path('breathing_exercise', {id: exercise.id}) }}" class="btn btn-primary">
+                                Commencer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-span-3 text-center text-base-content/50 py-12">
+                    Aucun exercice disponible pour le moment.
+                </div>
+            {% endfor %}
+
+            <!-- Exercice personnalisé -->
+            <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow border-2 border-dashed border-base-300">
+                <div class="card-body items-center text-center">
+                    <div class="w-20 h-20 rounded-full bg-secondary/10 border-4 border-secondary flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V12M12 12V18M12 12H6M12 12H18" />
+                        </svg>
+                    </div>
+                    <h2 class="card-title">Personnalisé</h2>
+                    <div class="flex gap-3 my-3 flex-wrap justify-center">
+                        <div class="badge badge-outline gap-1 opacity-50">
+                            <span class="text-xs">inspiration</span>
+                        </div>
+                        <div class="badge badge-outline gap-1 opacity-50">
+                            <span class="text-xs">apnée</span>
+                        </div>
+                        <div class="badge badge-outline gap-1 opacity-50">
+                            <span class="text-xs">expiration</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-base-content/60 mb-4">Définissez vos propres durées selon votre rythme.</p>
+                    <div class="card-actions">
+                        <a href="{{ path('breathing_custom') }}" class="btn btn-secondary">
+                            Configurer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

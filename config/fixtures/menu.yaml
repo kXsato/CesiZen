@@ -5,7 +5,7 @@ menu:
       isActive: true
 
     - label: "Exercices de respiration"
-      infoPage: "Exercices de respiration"
+      systemRoute: "breathing_index"
       position: 1
       isActive: true
 

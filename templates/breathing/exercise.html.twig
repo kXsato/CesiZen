@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ exercise.name }} — Exercice de respiration{% endblock %}
+
+{% block body %}
+<div class="flex-1 bg-base-200 flex flex-col items-center justify-center py-12 px-4">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold mb-1">{{ exercise.name }}</h1>
+        {% if exercise.description %}
+            <p class="text-base-content/60 max-w-md mx-auto">{{ exercise.description }}</p>
+        {% endif %}
+    </div>
+
+    <div
+        id="breathing-container"
+        data-inspiration="{{ exercise.inspirationDuration }}"
+        data-apnea="{{ exercise.apneaDuration }}"
+        data-expiration="{{ exercise.expirationDuration }}"
+        class="flex flex-col items-center gap-8"
+    >
+        <!-- Cercle animé -->
+        <div class="relative flex items-center justify-center" style="width: 220px; height: 220px;">
+            <div
+                id="breathing-circle"
+                class="rounded-full bg-primary/20 border-4 border-primary transition-all ease-linear flex items-center justify-center"
+                style="width: 120px; height: 120px;"
+            >
+                <div class="rounded-full bg-primary/40" id="breathing-inner" style="width: 60px; height: 60px; transition: all ease-linear;"></div>
+            </div>
+        </div>
+
+        <!-- Phase et décompte -->
+        <div class="text-center min-h-20">
+            <p id="phase-label" class="text-2xl font-semibold text-primary mb-2">—</p>
+            <p id="phase-countdown" class="text-5xl font-bold tabular-nums">—</p>
+        </div>
+
+        <!-- Contrôles -->
+        <div class="flex gap-4">
+            <button id="btn-start" class="btn btn-primary btn-lg">Commencer</button>
+            <button id="btn-stop" class="btn btn-ghost btn-lg hidden">Arrêter</button>
+        </div>
+
+        <a href="{{ path('breathing_index') }}" class="link link-hover text-sm text-base-content/50">
+            ← Retour aux exercices
+        </a>
+    </div>
+</div>
+
+<script>
+(function () {
+    const container    = document.getElementById('breathing-container');
+    const circle       = document.getElementById('breathing-circle');
+    const inner        = document.getElementById('breathing-inner');
+    const phaseLabel   = document.getElementById('phase-label');
+    const phaseCountdown = document.getElementById('phase-countdown');
+    const btnStart     = document.getElementById('btn-start');
+    const btnStop      = document.getElementById('btn-stop');
+
+    const INSPIRATION  = parseInt(container.dataset.inspiration, 10);
+    const APNEA        = parseInt(container.dataset.apnea, 10);
+    const EXPIRATION   = parseInt(container.dataset.expiration, 10);
+
+    const SIZE_MIN = 100;
+    const SIZE_MAX = 200;
+    const INNER_MIN = 50;
+    const INNER_MAX = 110;
+
+    let timer = null;
+    let running = false;
+
+    const phases = [];
+    phases.push({ label: 'Inspirez', duration: INSPIRATION, sizeTo: SIZE_MAX, innerTo: INNER_MAX });
+    if (APNEA > 0) {
+        phases.push({ label: 'Retenez', duration: APNEA, sizeTo: SIZE_MAX, innerTo: INNER_MAX });
+    }
+    phases.push({ label: 'Expirez', duration: EXPIRATION, sizeTo: SIZE_MIN, innerTo: INNER_MIN });
+
+    function setCircle(size, innerSize, durationSec) {
+        const d = durationSec * 1000 + 'ms';
+        circle.style.transition = `width ${d} ease-in-out, height ${d} ease-in-out`;
+        inner.style.transition   = `width ${d} ease-in-out, height ${d} ease-in-out`;
+        circle.style.width  = size + 'px';
+        circle.style.height = size + 'px';
+        inner.style.width   = innerSize + 'px';
+        inner.style.height  = innerSize + 'px';
+    }
+
+    function runPhase(phaseIndex, onDone) {
+        const phase = phases[phaseIndex];
+        phaseLabel.textContent = phase.label;
+        setCircle(phase.sizeTo, phase.innerTo, phase.duration);
+
+        let remaining = phase.duration;
+        phaseCountdown.textContent = remaining;
+
+        timer = setInterval(() => {
+            remaining--;
+            phaseCountdown.textContent = remaining;
+            if (remaining <= 0) {
+                clearInterval(timer);
+                onDone();
+            }
+        }, 1000);
+    }
+
+    function runCycle() {
+        if (!running) return;
+
+        let phaseIndex = 0;
+
+        function next() {
+            if (!running) return;
+            if (phaseIndex >= phases.length) {
+                phaseIndex = 0;
+            }
+            runPhase(phaseIndex, () => {
+                phaseIndex++;
+                next();
+            });
+        }
+
+        next();
+    }
+
+    function start() {
+        running = true;
+        btnStart.classList.add('hidden');
+        btnStop.classList.remove('hidden');
+        runCycle();
+    }
+
+    function stop() {
+        running = false;
+        clearInterval(timer);
+        btnStop.classList.add('hidden');
+        btnStart.classList.remove('hidden');
+        phaseLabel.textContent = '—';
+        phaseCountdown.textContent = '—';
+        circle.style.transition = 'width 0.5s ease, height 0.5s ease';
+        inner.style.transition  = 'width 0.5s ease, height 0.5s ease';
+        circle.style.width  = SIZE_MIN + 'px';
+        circle.style.height = SIZE_MIN + 'px';
+        inner.style.width   = INNER_MIN + 'px';
+        inner.style.height  = INNER_MIN + 'px';
+    }
+
+    btnStart.addEventListener('click', start);
+    btnStop.addEventListener('click', stop);
+})();
+</script>
+{% endblock %}
