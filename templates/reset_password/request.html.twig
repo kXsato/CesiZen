@@ -1,22 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Mot de passe oublié{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
-
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address, and we will send you a
-                link to reset your password.
-            </small>
+<div class="hero bg-base-200 flex-1">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold">Mot de passe oublié ?</h1>
+            <p class="py-6 w-2/3">
+                Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+            </p>
         </div>
+        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+            <div class="card-body">
+                {% for flash_error in app.flashes('reset_password_error') %}
+                    <div class="alert alert-error">{{ flash_error }}</div>
+                {% endfor %}
 
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+                {{ form_start(requestForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                <fieldset class="fieldset">
+                    <label class="label">{{ form_label(requestForm.email) }}</label>
+                    {{ form_widget(requestForm.email, {'attr': {'class': 'input w-full', 'placeholder': 'exemple@email.com'}}) }}
+                    {{ form_errors(requestForm.email) }}
+
+                    <button type="submit" class="btn btn-neutral mt-4 w-full">Envoyer le lien</button>
+
+                    <p class="text-center text-sm mt-4">
+                        <a href="{{ path('app_login') }}" class="link link-hover font-semibold">Retour à la connexion</a>
+                    </p>
+                </fieldset>
+                {{ form_end(requestForm) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

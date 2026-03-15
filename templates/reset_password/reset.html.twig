@@ -1,12 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Réinitialiser le mot de passe{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
+<div class="hero bg-base-200 flex-1">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold">Nouveau mot de passe</h1>
+            <p class="py-6 w-2/3">
+                Choisissez un nouveau mot de passe d'au moins 6 caractères, avec une majuscule et un chiffre.
+            </p>
+        </div>
+        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+            <div class="card-body">
+                {{ form_start(resetForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                <fieldset class="fieldset">
+                    <label class="label">{{ form_label(resetForm.plainPassword.first) }}</label>
+                    {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'input w-full', 'placeholder': 'Nouveau mot de passe'}}) }}
+                    {{ form_errors(resetForm.plainPassword.first) }}
 
-    {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+                    <label class="label">{{ form_label(resetForm.plainPassword.second) }}</label>
+                    {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'input w-full', 'placeholder': 'Confirmer le mot de passe'}}) }}
+                    {{ form_errors(resetForm.plainPassword.second) }}
+
+                    <button type="submit" class="btn btn-neutral mt-4 w-full">Réinitialiser le mot de passe</button>
+                </fieldset>
+                {{ form_end(resetForm) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
