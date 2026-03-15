@@ -23,6 +23,12 @@ class InfoPageController extends AbstractController
         return $this->renderPage($slug, InfoPageCategory::LEGAL, $repository);
     }
 
+    #[Route('/{slug}', name: 'info_page_root', priority: -10)]
+    public function root(string $slug, InfoPageRepository $repository): Response
+    {
+        return $this->renderPage($slug, InfoPageCategory::PAGE_ROOT, $repository);
+    }
+
     private function renderPage(string $slug, InfoPageCategory $category, InfoPageRepository $repository): Response
     {
         $page = $repository->findOneBy([

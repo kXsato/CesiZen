@@ -2,21 +2,18 @@
 
 namespace App\Twig\Extension;
 
-use App\Repository\InfoPageRepository;
+use App\Repository\MenuItemRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 
 class InfoPageExtension extends AbstractExtension implements GlobalsInterface
 {
-    public function __construct(private InfoPageRepository $repository) {}
+    public function __construct(private MenuItemRepository $repository) {}
 
     public function getGlobals(): array
     {
         return [
-            'published_pages' => $this->repository->findBy(
-                ['isPublished' => true],
-                ['title' => 'ASC']
-            ),
+            'menu_items' => $this->repository->findRootItems(),
         ];
     }
 }
