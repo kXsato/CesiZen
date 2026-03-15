@@ -11,11 +11,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
+use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 class AdminUserCrudController extends AbstractCrudController
 {
-    public function __construct(private UserPasswordHasherInterface $hasher) {}
+    public function __construct(
+        private UserPasswordHasherInterface $hasher,
+        private ResetPasswordHelperInterface $resetPasswordHelper,
+        private MailerInterface $mailer,
+    ) {}
 
     public static function getEntityFqcn(): string
     {
@@ -48,16 +57,32 @@ class AdminUserCrudController extends AbstractCrudController
             return;
         }
 
-        $plainPassword = bin2hex(random_bytes(8));
-
-        $entityInstance->setPassword($this->hasher->hashPassword($entityInstance, $plainPassword));
-
-        $this->addFlash('success', sprintf(
-            'Compte créé pour %s. Mot de passe temporaire : %s',
-            $entityInstance->getEmail(),
-            $plainPassword
-        ));
+        // Définit un mot de passe verrouillé — l'utilisateur devra le créer via l'email envoyé ci-dessous
+        $entityInstance->setPassword($this->hasher->hashPassword($entityInstance, bin2hex(random_bytes(32))));
 
         parent::persistEntity($entityManager, $entityInstance);
+
+        try {
+            $resetToken = $this->resetPasswordHelper->generateResetToken($entityInstance);
+
+            $email = (new TemplatedEmail())
+                ->from(new Address('cesizen@noreply.com', 'CesiZen'))
+                ->to((string) $entityInstance->getEmail())
+                ->subject('Définissez votre mot de passe CesiZen')
+                ->htmlTemplate('reset_password/email.html.twig')
+                ->context(['resetToken' => $resetToken]);
+
+            $this->mailer->send($email);
+
+            $this->addFlash('success', sprintf(
+                'Compte créé pour %s. Un email de définition de mot de passe lui a été envoyé.',
+                $entityInstance->getEmail()
+            ));
+        } catch (ResetPasswordExceptionInterface) {
+            $this->addFlash('warning', sprintf(
+                'Compte créé pour %s, mais l\'email de définition de mot de passe n\'a pas pu être envoyé.',
+                $entityInstance->getEmail()
+            ));
+        }
     }
 }
