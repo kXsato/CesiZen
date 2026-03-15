@@ -1,0 +1,21 @@
+breathing_exercises:
+    - name: "7-4-8"
+      inspirationDuration: 7
+      apneaDuration: 4
+      expirationDuration: 8
+      isActive: true
+      description: "La technique 7-4-8 est une méthode de relaxation profonde. L'apnée prolongée favorise l'oxygénation du sang et active le système parasympathique."
+
+    - name: "5-5"
+      inspirationDuration: 5
+      apneaDuration: 0
+      expirationDuration: 5
+      isActive: true
+      description: "La cohérence cardiaque classique en 5-5. Une respiration douce et rythmée à 6 cycles par minute, idéale pour les débutants."
+
+    - name: "4-6"
+      inspirationDuration: 4
+      apneaDuration: 0
+      expirationDuration: 6
+      isActive: true
+      description: "L'expiration allongée stimule davantage le nerf vague et accentue l'effet apaisant. Recommandée en cas de stress aigu."

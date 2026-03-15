@@ -24,10 +24,11 @@ class MenuItemChildType extends AbstractType
                 'required' => false,
                 'placeholder' => '-- Aucun --',
                 'choices' => [
-                    'Connexion'      => 'app_login',
-                    'Inscription'    => 'app_register',
-                    'Mon compte'     => 'user_dashboard',
-                    'Administration' => 'admin',
+                    'Connexion'               => 'app_login',
+                    'Inscription'             => 'app_register',
+                    'Mon compte'              => 'user_dashboard',
+                    'Administration'          => 'admin',
+                    'Exercices de respiration' => 'breathing_index',
                 ],
             ])
             ->add('infoPage', EntityType::class, [
