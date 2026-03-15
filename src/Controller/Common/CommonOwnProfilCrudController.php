@@ -19,14 +19,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class CommonOwnProfilCrudController extends AbstractCrudController
 {
     public function __construct(
-        private UserPasswordHasherInterface $hasher,
         private AdminUrlGenerator $adminUrlGenerator,
     ) {}
 
@@ -75,32 +72,8 @@ class CommonOwnProfilCrudController extends AbstractCrudController
             EmailField::new('email', 'Adresse e-mail'),
             TextField::new('userName', 'Nom d\'utilisateur'),
             DateField::new('birthDate', 'Date de naissance'),
-            TextField::new('plainPassword', 'Nouveau mot de passe')
-                ->setFormType(RepeatedType::class)
-                ->setFormTypeOptions([
-                    'type' => PasswordType::class,
-                    'first_options' => ['label' => 'Nouveau mot de passe'],
-                    'second_options' => ['label' => 'Confirmer le mot de passe'],
-                    'mapped' => false,
-                    'required' => false,
-                ])
-                ->onlyOnForms(),
         ];
     }
 
-    public function updateEntity(\Doctrine\ORM\EntityManagerInterface $entityManager, mixed $entityInstance): void
-    {
-        if (!$entityInstance instanceof User) {
-            parent::updateEntity($entityManager, $entityInstance);
-            return;
-        }
 
-        $plainPassword = $this->getContext()->getRequest()->request->all()['User']['plainPassword']['first'] ?? null;
-
-        if (!empty($plainPassword)) {
-            $entityInstance->setPassword($this->hasher->hashPassword($entityInstance, $plainPassword));
-        }
-
-        parent::updateEntity($entityManager, $entityInstance);
-    }
 }
