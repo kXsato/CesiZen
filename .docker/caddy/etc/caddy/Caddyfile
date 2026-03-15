@@ -9,3 +9,9 @@ cesi-zen.test {
 
     file_server
 }
+
+mail.cesi-zen.test {
+    tls internal
+
+    reverse_proxy mailpit:8025
+}
