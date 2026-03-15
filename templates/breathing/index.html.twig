@@ -53,35 +53,6 @@
                     Aucun exercice disponible pour le moment.
                 </div>
             {% endfor %}
-
-            <!-- Exercice personnalisé -->
-            <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow border-2 border-dashed border-base-300">
-                <div class="card-body items-center text-center">
-                    <div class="w-20 h-20 rounded-full bg-secondary/10 border-4 border-secondary flex items-center justify-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V12M12 12V18M12 12H6M12 12H18" />
-                        </svg>
-                    </div>
-                    <h2 class="card-title">Personnalisé</h2>
-                    <div class="flex gap-3 my-3 flex-wrap justify-center">
-                        <div class="badge badge-outline gap-1 opacity-50">
-                            <span class="text-xs">inspiration</span>
-                        </div>
-                        <div class="badge badge-outline gap-1 opacity-50">
-                            <span class="text-xs">apnée</span>
-                        </div>
-                        <div class="badge badge-outline gap-1 opacity-50">
-                            <span class="text-xs">expiration</span>
-                        </div>
-                    </div>
-                    <p class="text-sm text-base-content/60 mb-4">Définissez vos propres durées selon votre rythme.</p>
-                    <div class="card-actions">
-                        <a href="{{ path('breathing_custom') }}" class="btn btn-secondary">
-                            Configurer
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

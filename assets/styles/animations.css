@@ -1,0 +1,13 @@
+@keyframes waveScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+#wave-scroll {
+    animation: waveScroll 4s linear infinite;
+    will-change: transform;
+}

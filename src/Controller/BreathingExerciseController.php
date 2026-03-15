@@ -18,12 +18,6 @@ class BreathingExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/exercices/personnalise', name: 'breathing_custom')]
-    public function custom(): Response
-    {
-        return $this->render('breathing/custom.html.twig');
-    }
-
     #[Route('/exercices/{id}', name: 'breathing_exercise', requirements: ['id' => '\d+'])]
     public function exercise(BreathingExercise $exercise): Response
     {
