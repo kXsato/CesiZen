@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3dc82794edec48e88438d24f12440ee",
+    "content-hash": "df3b801f3afe91cc3045f1d0f0f2c193",
     "packages": [
         {
             "name": "composer/semver",
@@ -1369,6 +1369,59 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "emileperron/tinymce-bundle",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EmilePerron/tinymce-bundle.git",
+                "reference": "4c11e441a0e091eda1f9717a77ebdb4e6c143337"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EmilePerron/tinymce-bundle/zipball/4c11e441a0e091eda1f9717a77ebdb4e6c143337",
+                "reference": "4c11e441a0e091eda1f9717a77ebdb4e6c143337",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "symfony/asset": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "symfony/dependency-injection": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "symfony/form": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "symfony/http-foundation": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "symfony/http-kernel": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "symfony/routing": "^4.0|^5.0|^6.0|^7.0|^8.0",
+                "twig/twig": "^3.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.74",
+                "phpmd/phpmd": "^2.15",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan": "^1.12.23",
+                "phpstan/phpstan-symfony": "^1.4.15",
+                "phpunit/phpunit": "^9.16|^10.5|^11.5.8",
+                "vincentlanglet/twig-cs-fixer": "^2.12.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "EmilePerron\\TinymceBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Émile Perron",
+                    "email": "contact@emileperron.com"
+                }
+            ],
+            "description": "A Symfony bundle to add TinyMCE in your apps and forms.",
+            "support": {
+                "issues": "https://github.com/EmilePerron/tinymce-bundle/issues",
+                "source": "https://github.com/EmilePerron/tinymce-bundle/tree/v3.3.0"
+            },
+            "time": "2025-12-19T19:43:05+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -7685,6 +7738,62 @@
                 }
             ],
             "time": "2025-12-04T18:17:06+00:00"
+        },
+        {
+            "name": "symfonycasts/tailwind-bundle",
+            "version": "v0.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/tailwind-bundle.git",
+                "reference": "17c85e25d3ceb54b8599e8ca4c5b67c485f2a48a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/tailwind-bundle/zipball/17c85e25d3ceb54b8599e8ca4c5b67c485f2a48a",
+                "reference": "17c85e25d3ceb54b8599e8ca4c5b67c485f2a48a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/asset-mapper": "^6.3|^7.0|^8.0",
+                "symfony/cache": "^6.3|^7.0|^8.0",
+                "symfony/console": "^5.4|^6.3|^7.0|^8.0",
+                "symfony/deprecation-contracts": "^2.2|^3.0",
+                "symfony/http-client": "^5.4|^6.3|^7.0|^8.0",
+                "symfony/process": "^5.4|^6.3|^7.0|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.6",
+                "symfony/filesystem": "^6.3|^7.0|^8.0",
+                "symfony/framework-bundle": "^6.3|^7.0|^8.0",
+                "symfony/phpunit-bridge": "^6.3.9|^7.0|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfonycasts\\TailwindBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan Weaver",
+                    "homepage": "https://symfonycasts.com"
+                }
+            ],
+            "description": "Delightful Tailwind Support for Symfony + AssetMapper",
+            "keywords": [
+                "asset-mapper",
+                "tailwind"
+            ],
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/tailwind-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/tailwind-bundle/tree/v0.12.0"
+            },
+            "time": "2025-11-24T10:14:04+00:00"
         },
         {
             "name": "twig/extra-bundle",

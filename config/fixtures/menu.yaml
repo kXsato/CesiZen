@@ -1,0 +1,39 @@
+menu:
+    - label: "Accueil"
+      infoPage: "Accueil"
+      position: 0
+      isActive: true
+
+    - label: "Exercices de respiration"
+      infoPage: "Exercices de respiration"
+      position: 1
+      isActive: true
+
+    - label: "À propos"
+      infoPage: "À propos"
+      position: 2
+      isActive: true
+
+    - label: "Pourquoi la respiration ?"
+      infoPage: "Pourquoi la respiration ?"
+      position: 3
+      isActive: true
+
+    - label: "Légal"
+      position: 4
+      isActive: true
+      children:
+          - label: "Mentions légales"
+            infoPage: "Mentions légales"
+            position: 0
+            isActive: true
+
+          - label: "Politique de confidentialité"
+            infoPage: "Politique de confidentialité"
+            position: 1
+            isActive: true
+
+          - label: "CGU"
+            infoPage: "CGU"
+            position: 2
+            isActive: true

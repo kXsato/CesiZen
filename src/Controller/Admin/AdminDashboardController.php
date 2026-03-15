@@ -33,8 +33,10 @@ class AdminDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkTo(AdminOwnProfilCrudController::class, 'Mon profil', 'fa fa-user');
         yield MenuItem::linkTo(AdminUserCrudController::class, 'Utilisateurs', 'fa fa-users');
+        yield MenuItem::linkTo(AdminInfoPageCrudController::class, 'Pages', 'fa fa-file-text');
+        yield MenuItem::linkTo(AdminMenuItemCrudController::class, 'Menu', 'fa fa-bars');
+        yield MenuItem::linkTo(AdminOwnProfilCrudController::class, 'Mon profil', 'fa fa-user');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }
 }

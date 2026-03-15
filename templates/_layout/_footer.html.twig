@@ -1,0 +1,32 @@
+{% macro itemUrl(item) %}
+    {%- if item.systemRoute -%}
+        {{ path(item.systemRoute) }}
+    {%- elseif item.infoPage -%}
+        {{ path('info_page_legal', {slug: item.infoPage.slug}) }}
+    {%- else -%}
+        {{ item.rawUrl }}
+    {%- endif -%}
+{% endmacro %}
+
+{% import _self as footer %}
+
+<footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
+    <nav class="grid grid-flow-col gap-4">
+        {% for item in menu_items %}
+            {% if item.children|length > 0 %}
+                {% for child in item.children %}
+                    {% if child.isActive and child.infoPage and child.infoPage.category.value == 'legal' %}
+                        <a href="{{ footer.itemUrl(child) }}" class="link link-hover">{{ child.label }}</a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% if item.isActive and item.infoPage and item.infoPage.category.value == 'legal' %}
+                    <a href="{{ footer.itemUrl(item) }}" class="link link-hover">{{ item.label }}</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </nav>
+    <aside>
+        <p>Copyright © {{ "now"|date("Y") }} — Tous droits réservés par CesiZen</p>
+    </aside>
+</footer>

@@ -1467,6 +1467,42 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     },
  *     controllers_json?: scalar|Param|null, // Deprecated: The "twig_component.controllers_json" config option is deprecated, and will be removed in 3.0. // Default: null
  * }
+ * @psalm-type SymfonycastsTailwindConfig = array{
+ *     input_css?: list<scalar|Param|null>,
+ *     config_file?: scalar|Param|null, // Path to the tailwind.config.js file // Default: "%kernel.project_dir%/tailwind.config.js"
+ *     binary?: scalar|Param|null, // The tailwind binary to use instead of downloading a new one // Default: null
+ *     binary_version?: scalar|Param|null, // Tailwind CLI version to download - null means the latest version // Default: null
+ *     binary_platform?: "auto"|"linux-arm64"|"linux-arm64-musl"|"linux-x64"|"linux-x64-musl"|"macos-arm64"|"macos-x64"|"windows-x64"|Param, // Tailwind CLI platform to download - "auto" will try to detect the platform automatically // Default: "auto"
+ *     postcss_config_file?: scalar|Param|null, // Path to PostCSS config file which is passed to the Tailwind CLI // Default: null
+ *     strict_mode?: bool|Param|null, // When enabled, an exception will be thrown if there are no built assets (default: false in `test` env, true otherwise) // Default: null
+ * }
+ * @psalm-type TinymceConfig = array{
+ *     skin?: scalar|Param|null,
+ *     config?: scalar|Param|null,
+ *     content_css?: scalar|Param|null,
+ *     content_style?: scalar|Param|null,
+ *     plugins?: scalar|Param|null,
+ *     toolbar?: scalar|Param|null,
+ *     toolbar_mode?: scalar|Param|null,
+ *     menubar?: scalar|Param|null,
+ *     contextmenu?: scalar|Param|null,
+ *     quickbars_insert_toolbar?: scalar|Param|null,
+ *     quickbars_selection_toolbar?: scalar|Param|null,
+ *     resize?: scalar|Param|null,
+ *     icons?: scalar|Param|null,
+ *     icons_url?: scalar|Param|null,
+ *     setup?: scalar|Param|null,
+ *     images_upload_url?: scalar|Param|null,
+ *     images_upload_route?: scalar|Param|null,
+ *     images_upload_route_params?: array<mixed>,
+ *     images_upload_handler?: scalar|Param|null,
+ *     images_upload_base_path?: scalar|Param|null,
+ *     images_upload_credentials?: scalar|Param|null,
+ *     images_reuse_filename?: scalar|Param|null,
+ *     powerpaste_word_import?: scalar|Param|null,
+ *     powerpaste_html_import?: scalar|Param|null,
+ *     powerpaste_allow_local_images?: scalar|Param|null,
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1481,6 +1517,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     security?: SecurityConfig,
  *     monolog?: MonologConfig,
  *     twig_component?: TwigComponentConfig,
+ *     symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *     tinymce?: TinymceConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -1498,6 +1536,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         monolog?: MonologConfig,
  *         maker?: MakerConfig,
  *         twig_component?: TwigComponentConfig,
+ *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *         tinymce?: TinymceConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1513,6 +1553,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
  *         twig_component?: TwigComponentConfig,
+ *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *         tinymce?: TinymceConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -1529,6 +1571,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
  *         twig_component?: TwigComponentConfig,
+ *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
+ *         tinymce?: TinymceConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,
