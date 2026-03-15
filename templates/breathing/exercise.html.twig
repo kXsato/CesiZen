@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ exercise.name }} — Exercice de respiration{% endblock %}
+
+{% block body %}
+<div class="flex-1 bg-base-200 flex flex-col items-center justify-center py-12 px-4">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold mb-1">{{ exercise.name }}</h1>
+        {% if exercise.description %}
+            <p class="text-base-content/60 max-w-md mx-auto">{{ exercise.description }}</p>
+        {% endif %}
+    </div>
+
+    <div
+        id="breathing-container"
+        data-inspiration="{{ exercise.inspirationDuration }}"
+        data-apnea="{{ exercise.apneaDuration }}"
+        data-expiration="{{ exercise.expirationDuration }}"
+        class="flex flex-col items-center gap-8"
+    >
+        <!-- Cercle vague -->
+        <div class="relative rounded-full overflow-hidden border-4 border-primary bg-base-100 shadow-xl"
+             style="width: 220px; height: 220px;">
+            <div id="water" class="absolute bottom-0 left-0 right-0" style="height: 15%;">
+                <div id="wave-scroll" style="position: absolute; top: -19px; left: 0; width: 200%;">
+                    <svg viewBox="0 0 800 20" xmlns="http://www.w3.org/2000/svg"
+                         style="width: 100%; height: 20px; display: block;" class="text-primary opacity-60">
+                        <path d="M0,10 C50,0 100,20 150,10 C200,0 250,20 300,10 C350,0 400,20 400,10 C450,0 500,20 550,10 C600,0 650,20 700,10 C750,0 800,20 800,10 L800,20 L0,20 Z"
+                              fill="currentColor"/>
+                    </svg>
+                </div>
+                <div class="w-full h-full bg-primary/30"></div>
+            </div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+                <p id="phase-label" class="text-sm font-semibold text-primary tracking-wide uppercase">—</p>
+                <p id="phase-countdown" class="text-5xl font-bold tabular-nums text-base-content">—</p>
+            </div>
+        </div>
+
+        <!-- Son -->
+        <div class="flex items-center gap-3">
+            <button id="btn-sound" class="btn btn-ghost btn-sm gap-2" title="Activer le son">
+                <svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 6v12m0 0l-3-3m3 3l3-3M9 9H5a1 1 0 00-1 1v4a1 1 0 001 1h4l3 3V6L9 9z" />
+                </svg>
+                <svg id="icon-sound-off" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                </svg>
+                <span id="sound-label" class="text-xs">Son</span>
+            </button>
+            <input id="volume-slider" type="range" min="0" max="100" value="15" class="range range-primary range-xs w-28" />
+        </div>
+
+        <!-- Contrôles -->
+        <div class="flex gap-4">
+            <button id="btn-start" class="btn btn-primary btn-lg">Commencer</button>
+            <button id="btn-stop" class="btn btn-ghost btn-lg hidden">Arrêter</button>
+        </div>
+
+        <a href="{{ path('breathing_index') }}" class="link link-hover text-sm text-base-content/50">
+            ← Retour aux exercices
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
