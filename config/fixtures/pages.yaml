@@ -1,0 +1,35 @@
+pages:
+    - title: "Accueil"
+      category: "root"
+      isPublished: true
+      content: "<h2>Bienvenue sur CesiZen</h2><p>CesiZen est une plateforme dédiée au bien-être et à la gestion du stress, développée dans le cadre du projet CESI. Découvrez nos exercices de respiration guidés et prenez soin de vous.</p>"
+
+    - title: "Exercices de respiration"
+      category: "root"
+      isPublished: true
+      content: "<h2>Catalogue des exercices</h2><p>Explorez nos exercices de respiration pour réduire le stress et améliorer votre bien-être.</p><ul><li><strong>Cohérence cardiaque</strong> — 5 minutes, 6 respirations par minute</li><li><strong>Box Breathing</strong> — Inspirez 4s, retenez 4s, expirez 4s, retenez 4s</li><li><strong>4-7-8</strong> — Inspirez 4s, retenez 7s, expirez 8s</li></ul>"
+
+    - title: "À propos"
+      category: "page"
+      isPublished: true
+      content: "<h2>Notre mission</h2><p>CesiZen est né d'un projet étudiant au sein du CESI, avec pour objectif d'aider chacun à mieux gérer son stress grâce à des techniques de respiration validées scientifiquement.</p><h3>L'équipe</h3><p>Ce projet a été développé par des étudiants passionnés par le bien-être numérique et les technologies web modernes.</p>"
+
+    - title: "Pourquoi la respiration ?"
+      category: "page"
+      isPublished: true
+      content: "<h2>Les bienfaits scientifiques</h2><p>La respiration consciente agit directement sur le système nerveux autonome. En ralentissant votre rythme respiratoire, vous activez le système parasympathique, responsable de la détente.</p><h3>Les bénéfices prouvés</h3><ul><li>Réduction du cortisol (hormone du stress)</li><li>Diminution de la fréquence cardiaque</li><li>Amélioration de la concentration</li><li>Meilleure qualité de sommeil</li></ul>"
+
+    - title: "Mentions légales"
+      category: "legal"
+      isPublished: true
+      content: "<h2>Mentions légales</h2><p>Ce site est édité dans le cadre d'un projet pédagogique au CESI.</p><h3>Hébergement</h3><p>Ce site est hébergé localement à des fins de développement.</p>"
+
+    - title: "Politique de confidentialité"
+      category: "legal"
+      isPublished: true
+      content: "<h2>Politique de confidentialité</h2><p>Nous collectons uniquement les données nécessaires au fonctionnement du service : adresse e-mail, nom d'utilisateur et date de naissance.</p><h3>Vos droits</h3><p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.</p>"
+
+    - title: "CGU"
+      category: "legal"
+      isPublished: true
+      content: "<h2>Conditions Générales d'Utilisation</h2><p>En utilisant CesiZen, vous acceptez les présentes conditions. Ce service est réservé à un usage personnel et non commercial.</p><h3>Responsabilité</h3><p>Les exercices proposés sont à titre informatif et ne remplacent pas un avis médical.</p>"
