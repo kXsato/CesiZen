@@ -30,6 +30,11 @@
                         <button type="submit" class="btn btn-neutral mt-4 w-full">Se connecter</button>
 
                         <p class="text-center text-sm mt-4">
+                            Mot de passe oublié ?
+                            <a href="{{ path('app_forgot_password_request') }}" class="link link-hover font-semibold">Réinitialiser le mot de passe</a>
+                        </p>
+
+                        <p class="text-center text-sm mt-4">
                             Pas encore de compte ?
                             <a href="{{ path('app_register') }}" class="link link-hover font-semibold">Créer un compte</a>
                         </p>
