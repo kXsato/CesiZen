@@ -65,3 +65,5 @@ docker.logs.caddy: ## Affiche les logs du conteneur Caddy
 
 docker.shell.php: ## Ouvre un terminal dans le conteneur PHP
 	$(DOCKER_COMPOSE) exec $(PHP_CONT) sh
+app.queue: ## Consomme la file de messages (Messenger)
+	$(call symfony.console,messenger:consume async -vv)
