@@ -17,7 +17,7 @@ class UserChecker implements UserCheckerInterface
         }
 
         if (!$user->isAccountActivated()) {
-            throw new CustomUserMessageAccountStatusException('Votre compte a été désactivé. Contactez un administrateur.');
+            throw new CustomUserMessageAccountStatusException('Votre compte a été désactivé. Vous pouvez soumettre une demande de réactivation.');
         }
     }
 

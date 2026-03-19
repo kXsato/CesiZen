@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil — CesiZen{% endblock %}
+
+{% block body %}
+<div class="hero bg-base-200 flex-1 py-20 mb-10">
+    <div class="hero-content text-center flex-col">
+        <div class="max-w-2xl">
+            <h1 class="text-5xl font-bold mb-6">Bienvenue sur CesiZen</h1>
+            <p class="text-xl text-base-content/70 mb-10">
+                Votre espace de bien-être numérique. Réduisez le stress, améliorez votre concentration
+                et prenez soin de vous grâce à nos exercices de respiration guidés.
+            </p>
+
+            {% if app.user %}
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <a href="{{ path('breathing_index') }}" class="btn btn-primary btn-lg">
+                        Commencer un exercice
+                    </a>
+                    <a href="{{ path('user_dashboard') }}" class="btn btn-outline btn-lg">
+                        Mon compte
+                    </a>
+                </div>
+            {% else %}
+                <div class="flex gap-4 justify-center flex-wrap">
+                    <a href="{{ path('app_login') }}" class="btn btn-primary btn-lg">
+                        Se connecter
+                    </a>
+                    <a href="{{ path('app_register') }}" class="btn btn-outline btn-lg">
+                        Créer un compte
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="bg-base-100 py-16 px-4 mb-10">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Ce que vous pouvez faire</h2>
+
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="card bg-base-200 shadow-sm">
+                <div class="card-body items-center text-center">
+                    <div class="text-4xl mb-4">🌬️</div>
+                    <h3 class="card-title">Exercices de respiration</h3>
+                    <p class="text-base-content/70 text-sm">
+                        Des techniques de respiration guidées pour vous aider à gérer le stress et retrouver la sérénité.
+                    </p>
+                    <div class="card-actions mt-4">
+                        <a href="{{ path('breathing_index') }}" class="btn btn-primary btn-sm">Découvrir</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card bg-base-200 shadow-sm">
+                <div class="card-body items-center text-center">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="card-title">Ressources bien-être</h3>
+                    <p class="text-base-content/70 text-sm">
+                        Accédez à des articles et conseils pour mieux comprendre et gérer votre santé mentale.
+                    </p>
+                    <div class="badge badge-warning badge-outline mt-4">À venir</div>
+                </div>
+            </div>
+
+            <div class="card bg-base-200 shadow-sm">
+                <div class="card-body items-center text-center">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="card-title">Suivi personnalisé</h3>
+                    <p class="text-base-content/70 text-sm">
+                        Créez votre compte pour accéder à votre espace personnel et suivre votre progression.
+                    </p>
+                    {% if not app.user %}
+                        <div class="card-actions mt-4">
+                            <a href="{{ path('app_register') }}" class="btn btn-outline btn-sm">S'inscrire</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

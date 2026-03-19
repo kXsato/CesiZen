@@ -14,3 +14,27 @@ users:
       birthDate: "1990-03-22"
       registrationDate: "2024-01-01"
       lastLogin: "2026-03-15"
+
+    - email: alice.martin@gmail.com
+      userName: alice
+      roles: ["ROLE_USER"]
+      password: "alice123"
+      birthDate: "1998-04-12"
+      registrationDate: "2024-05-20"
+      lastLogin: "2026-03-10"
+
+    - email: bob.dupont@gmail.com
+      userName: bob
+      roles: ["ROLE_USER"]
+      password: "bob123"
+      birthDate: "1992-11-03"
+      registrationDate: "2024-09-08"
+      lastLogin: "2026-02-28"
+
+    - email: claire.lefebvre@gmail.com
+      userName: claire
+      roles: ["ROLE_USER"]
+      password: "claire123"
+      birthDate: "2001-07-25"
+      registrationDate: "2025-01-15"
+      lastLogin: "2026-03-18"

@@ -11,7 +11,7 @@ cesi-zen.test {
 }
 
 mail.cesi-zen.test {
-    tls internal
+    tls /etc/caddy/certs/cesi-zen.test.pem /etc/caddy/certs/cesi-zen.test-key.pem
 
     reverse_proxy mailpit:8025
 }

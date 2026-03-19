@@ -4,7 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -31,6 +36,16 @@ class AdminUserCrudController extends AbstractCrudController
         return User::class;
     }
 
+    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
+    {
+        $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
+
+        $qb->andWhere('entity.id != :currentUser')
+            ->setParameter('currentUser', $this->getUser()->getId());
+
+        return $qb;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -45,9 +60,19 @@ class AdminUserCrudController extends AbstractCrudController
                 ->allowMultipleChoices()
                 ->renderExpanded(),
             BooleanField::new('isAccountActivated', 'Compte actif'),
+            BooleanField::new('reactivationRequested', 'Réactivation demandée')->onlyOnIndex()->setDisabled(true),
             DateTimeField::new('registrationDate', 'Inscription')->setDisabled(true)->onlyOnDetail(),
             DateTimeField::new('lastLogin', 'Dernière connexion')->setDisabled(true)->onlyOnDetail(),
         ];
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
+    {
+        if ($entityInstance instanceof User && $entityInstance->isAccountActivated()) {
+            $entityInstance->setReactivationRequested(false);
+        }
+
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void

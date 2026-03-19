@@ -38,7 +38,7 @@ services:
 
   message-queue:
     build: .docker/php
-    command: php bin/console messenger:consume async --time-limit=3600 --memory-limit=128M -vv
+    command: sh -c "php bin/console doctrine:query:sql \"UPDATE messenger_messages SET delivered_at = NULL WHERE delivered_at IS NOT NULL\" && php bin/console messenger:consume async --time-limit=3600 --memory-limit=128M -vv"
     volumes:
       - .:/var/www/html
     networks:

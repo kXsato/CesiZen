@@ -47,6 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(options: ['default' => true])]
     private bool $isAccountActivated = true;
 
+    #[ORM\Column(options: ['default' => false])]
+    private bool $reactivationRequested = false;
+
     private ?string $plainPassword = null;
 
    
@@ -193,6 +196,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsAccountActivated(bool $isAccountActivated): static
     {
         $this->isAccountActivated = $isAccountActivated;
+
+        return $this;
+    }
+
+    public function isReactivationRequested(): bool
+    {
+        return $this->reactivationRequested;
+    }
+
+    public function setReactivationRequested(bool $reactivationRequested): static
+    {
+        $this->reactivationRequested = $reactivationRequested;
 
         return $this;
     }

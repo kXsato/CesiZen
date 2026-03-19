@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -12,7 +13,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class AdminDashboardController extends AbstractDashboardController
 {
-    public function __construct(private AdminUrlGenerator $adminUrlGenerator) {}
+    public function __construct(
+        private AdminUrlGenerator $adminUrlGenerator,
+        private UserRepository $userRepository,
+    ) {}
 
     public function index(): Response
     {
@@ -32,8 +36,11 @@ class AdminDashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        $pendingReactivations = $this->userRepository->countReactivationRequested();
+
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkTo(AdminUserCrudController::class, 'Utilisateurs', 'fa fa-users');
+        yield MenuItem::linkTo(AdminUserCrudController::class, 'Utilisateurs', 'fa fa-users')
+            ->setBadge($pendingReactivations > 0 ? $pendingReactivations : null, 'danger');
         yield MenuItem::linkTo(AdminInfoPageCrudController::class, 'Pages', 'fa fa-file-text');
         yield MenuItem::linkTo(AdminMenuItemCrudController::class, 'Menu', 'fa fa-bars');
         yield MenuItem::linkTo(AdminOwnProfilCrudController::class, 'Mon profil', 'fa fa-user');

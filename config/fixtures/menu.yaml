@@ -1,6 +1,6 @@
 menu:
     - label: "Accueil"
-      infoPage: "Accueil"
+      systemRoute: "app_home"
       position: 0
       isActive: true
 

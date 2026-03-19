@@ -26,7 +26,11 @@
             {% endif %}
         {% endfor %}
     </nav>
-    <aside>
+    <aside class="flex flex-col items-center gap-2">
+        <a href="{{ path('app_home') }}" class="flex items-center gap-2">
+            <img src="{{ asset('logo/Logo.svg') }}" alt="" class="h-5 invert dark:invert-0" />
+            <span class="text-xl font-semibold">CesiZen</span>
+        </a>
         <p>Copyright © {{ "now"|date("Y") }} — Tous droits réservés par CesiZen</p>
     </aside>
 </footer>
