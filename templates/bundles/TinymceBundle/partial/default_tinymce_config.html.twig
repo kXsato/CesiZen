@@ -1,0 +1,17 @@
+{% set config_var = tinymce_config_variable_name() %}
+<script>
+	if (typeof window.{{ config_var }} === 'undefined') {
+		window.{{ config_var }} = {};
+	}
+
+	if (typeof window.{{ config_var }}.license_key === 'undefined') {
+		window.{{ config_var }}.license_key = 'gpl';
+	}
+
+	Object.assign(window.{{ config_var }}, {
+		image_advtab: true,
+		image_uploadtab: false,
+		media_live_embeds: true,
+		extended_valid_elements: 'iframe[src|width|height|allow|allowfullscreen|frameborder|scrolling|title]',
+	});
+</script>
