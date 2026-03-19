@@ -14,8 +14,13 @@
         <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div class="card-body">
                 {% if error %}
-                    <div class="alert alert-error">
-                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    <div class="alert alert-error flex-col items-start gap-2">
+                        <span>{{ error.messageKey|trans(error.messageData, 'security') }}</span>
+                        {% if 'réactivation' in error.messageKey %}
+                            <a href="{{ path('app_account_reactivation') }}" class="link link-hover text-sm font-semibold">
+                                Demander la réactivation →
+                            </a>
+                        {% endif %}
                     </div>
                 {% endif %}
 

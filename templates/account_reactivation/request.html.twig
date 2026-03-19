@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande de réactivation — CesiZen{% endblock %}
+
+{% block body %}
+<div class="hero bg-base-200 flex-1">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+            <h1 class="text-4xl font-bold">Réactiver mon compte</h1>
+            <p class="py-6 text-base-content/70">
+                Saisissez votre adresse e-mail pour soumettre une demande de réactivation.<br>
+                Un administrateur traitera votre demande dans les plus brefs délais.
+            </p>
+        </div>
+        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+            <div class="card-body">
+                {% if sent %}
+                    <div class="alert alert-success">
+                        Votre demande a bien été envoyée. Un administrateur la traitera prochainement.
+                    </div>
+                    <a href="{{ path('app_login') }}" class="btn btn-outline mt-2">Retour à la connexion</a>
+                {% else %}
+                    <form method="post">
+                        <fieldset class="fieldset">
+                            <label class="label">Adresse e-mail</label>
+                            <input type="email" name="email" class="input w-full" placeholder="votre@email.com" required autocomplete="email" />
+                            <button type="submit" class="btn btn-primary mt-4 w-full">Envoyer la demande</button>
+                            <p class="text-center text-sm mt-4">
+                                <a href="{{ path('app_login') }}" class="link link-hover">Retour à la connexion</a>
+                            </p>
+                        </fieldset>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

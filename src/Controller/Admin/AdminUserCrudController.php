@@ -60,9 +60,19 @@ class AdminUserCrudController extends AbstractCrudController
                 ->allowMultipleChoices()
                 ->renderExpanded(),
             BooleanField::new('isAccountActivated', 'Compte actif'),
+            BooleanField::new('reactivationRequested', 'Réactivation demandée')->onlyOnIndex()->setDisabled(true),
             DateTimeField::new('registrationDate', 'Inscription')->setDisabled(true)->onlyOnDetail(),
             DateTimeField::new('lastLogin', 'Dernière connexion')->setDisabled(true)->onlyOnDetail(),
         ];
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
+    {
+        if ($entityInstance instanceof User && $entityInstance->isAccountActivated()) {
+            $entityInstance->setReactivationRequested(false);
+        }
+
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, mixed $entityInstance): void
