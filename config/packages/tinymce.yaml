@@ -1,0 +1,7 @@
+tinymce:
+    plugins: "advlist autolink link image media table lists code"
+    toolbar: "bold italic underline | bullist numlist | link image media | table | code"
+    image_advtab: true
+    image_uploadtab: false
+    media_live_embeds: true
+    extended_valid_elements: "iframe[src|width|height|allow|allowfullscreen|frameborder|scrolling|title]"
