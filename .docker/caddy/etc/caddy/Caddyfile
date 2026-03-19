@@ -1,5 +1,5 @@
 cesi-zen.test {
-    tls internal
+    tls /etc/caddy/certs/cesi-zen.test.pem /etc/caddy/certs/cesi-zen.test-key.pem
 
     root * /var/www/html/public
 
