@@ -65,5 +65,6 @@ docker.logs.caddy: ## Affiche les logs du conteneur Caddy
 
 docker.shell.php: ## Ouvre un terminal dans le conteneur PHP
 	$(DOCKER_COMPOSE) exec $(PHP_CONT) sh
-app.queue: ## Consomme la file de messages (Messenger)
+app.queue: ## Consomme la file de messages (Messenger) en réinitialisant les messages bloqués
+	$(DOCKER_COMPOSE) exec db mariadb -u$${DB_USER:-app} -p$${DB_PASSWORD:-app} $${DB_NAME:-app} -e "UPDATE messenger_messages SET delivered_at = NULL WHERE delivered_at IS NOT NULL;"
 	$(call symfony.console,messenger:consume async -vv)
