@@ -1,0 +1,38 @@
+<div id="cookie-banner"
+     class="fixed bottom-0 left-0 right-0 z-50 bg-base-200 border-t border-base-300 shadow-lg px-4 py-4"
+     role="dialog"
+     aria-label="Gestion des cookies"
+     aria-live="polite"
+     hidden>
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+        <p class="text-sm text-base-content/80">
+            Ce site utilise uniquement des cookies essentiels au fonctionnement du service (session et sécurité).
+            Aucun cookie publicitaire ou de suivi n'est utilisé.
+            <a href="{{ path('info_page_legal', {slug: 'politique-de-confidentialite'}) }}"
+               class="link link-hover font-semibold"
+               target="_blank">En savoir plus</a>.
+        </p>
+        <button id="cookie-accept"
+                type="button"
+                class="btn btn-primary btn-sm shrink-0"
+                aria-label="Accepter les cookies essentiels">
+            Accepter
+        </button>
+    </div>
+</div>
+
+<script>
+(function () {
+    const banner = document.getElementById('cookie-banner');
+    const btn    = document.getElementById('cookie-accept');
+
+    if (!localStorage.getItem('cookie_consent')) {
+        banner.removeAttribute('hidden');
+    }
+
+    btn.addEventListener('click', function () {
+        localStorage.setItem('cookie_consent', '1');
+        banner.setAttribute('hidden', '');
+    });
+})();
+</script>
