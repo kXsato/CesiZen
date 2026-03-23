@@ -36,7 +36,7 @@ class UserDashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkToRoute('Mon profil', 'fa fa-user', 'user_dashboard');
-        yield MenuItem::linkToRoute('Supprimer mon compte', 'fa fa-trash', 'account_delete');
+
         yield MenuItem::linkToRoute('Déconnexion', 'fa fa-sign-out', 'app_logout');
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller\User;
+namespace App\Controller\Common;
 
+use App\Entity\ResetPasswordRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,7 @@ class AccountDeletionController extends AbstractController
             $user = $this->getUser();
 
             $resetPasswordHelper->removeResetRequest($request->getSession()->get('ResetPasswordPublicToken', ''));
-            foreach ($em->getRepository(\App\Entity\ResetPasswordRequest::class)->findBy(['user' => $user]) as $resetRequest) {
+            foreach ($em->getRepository(ResetPasswordRequest::class)->findBy(['user' => $user]) as $resetRequest) {
                 $em->remove($resetRequest);
             }
 
