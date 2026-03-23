@@ -74,7 +74,7 @@ pages:
 
         <h3>4. Durée de conservation</h3>
         <ul>
-          <li>Données de compte : conservées tant que le compte est actif</li>
+          <li>Données de compte : conservées tant que le compte est actif, et supprimées automatiquement après <strong>3 ans d'inactivité</strong> (absence de connexion)</li>
           <li>Tokens de réinitialisation de mot de passe : supprimés automatiquement à expiration (1 heure)</li>
           <li>En cas de suppression du compte : toutes les données personnelles sont supprimées immédiatement et définitivement</li>
         </ul>

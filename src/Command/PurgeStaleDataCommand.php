@@ -18,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class PurgeStaleDataCommand extends Command
 {
-    private const DEFAULT_INACTIVITY_MONTHS = 24;
+    private const DEFAULT_INACTIVITY_MONTHS = 36;
 
     public function __construct(
         private UserRepository $userRepository,
