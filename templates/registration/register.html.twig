@@ -37,6 +37,17 @@
                     {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'input w-full'}}) }}
                     {{ form_errors(registrationForm.plainPassword.second) }}
 
+                    <div class="flex items-start gap-2 mt-2">
+                        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'checkbox checkbox-sm mt-0.5'}}) }}
+                        <span class="text-sm text-base-content/70">
+                            J'ai lu et j'accepte les
+                            <a href="{{ path('info_page_legal', {slug: 'cgu'}) }}" target="_blank" class="link link-hover font-semibold">CGU</a>
+                            et la
+                            <a href="{{ path('info_page_legal', {slug: 'politique-de-confidentialite'}) }}" target="_blank" class="link link-hover font-semibold">politique de confidentialité</a>.
+                        </span>
+                    </div>
+                    {{ form_errors(registrationForm.agreeTerms) }}
+
                     <button type="submit" class="btn btn-neutral mt-4 w-full">Créer mon compte</button>
 
                     <p class="text-center text-sm mt-4">
