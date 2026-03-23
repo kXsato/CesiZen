@@ -7,10 +7,12 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apk add --no-cache \
         icu-dev \
         libzip-dev \
+        libsodium-dev \
     && docker-php-ext-install \
         intl \
         opcache \
         pdo_mysql \
+        sodium \
         zip
 
 RUN apk add --no-cache $PHPIZE_DEPS linux-headers \
