@@ -22,14 +22,125 @@ pages:
     - title: "Mentions légales"
       category: "legal"
       isPublished: true
-      content: "<h2>Mentions légales</h2><p>Ce site est édité dans le cadre d'un projet pédagogique au CESI.</p><h3>Hébergement</h3><p>Ce site est hébergé localement à des fins de développement.</p>"
+      content: >
+        <h2>Mentions légales</h2>
+
+        <h3>Éditeur du site</h3>
+        <p>CesiZen est un projet pédagogique développé dans le cadre d'une formation au CESI.<br>
+        Contact : <a href="mailto:cesizen@noreply.com">cesizen@noreply.com</a></p>
+
+        <h3>Hébergement</h3>
+        <p>Ce site est hébergé dans le cadre d'un environnement de développement local sécurisé.</p>
+
+        <h3>Propriété intellectuelle</h3>
+        <p>L'ensemble des contenus présents sur ce site (textes, images, logos) sont la propriété exclusive de CesiZen ou de leurs auteurs respectifs.
+        Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation écrite préalable est interdite.</p>
+
+        <h3>Responsabilité</h3>
+        <p>Les informations et exercices proposés sur CesiZen sont fournis à titre informatif et pédagogique uniquement.
+        Ils ne constituent pas des conseils médicaux et ne sauraient remplacer une consultation auprès d'un professionnel de santé.</p>
 
     - title: "Politique de confidentialité"
       category: "legal"
       isPublished: true
-      content: "<h2>Politique de confidentialité</h2><p>Nous collectons uniquement les données nécessaires au fonctionnement du service : adresse e-mail, nom d'utilisateur et date de naissance.</p><h3>Vos droits</h3><p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données.</p>"
+      content: >
+        <h2>Politique de confidentialité</h2>
+        <p>Dernière mise à jour : mars 2026</p>
+
+        <h3>1. Responsable du traitement</h3>
+        <p>Le responsable du traitement des données personnelles collectées sur CesiZen est l'équipe pédagogique du projet CesiZen (CESI).<br>
+        Contact : <a href="mailto:cesizen@noreply.com">cesizen@noreply.com</a></p>
+
+        <h3>2. Données collectées</h3>
+        <p>Lors de la création de votre compte, nous collectons les données suivantes :</p>
+        <ul>
+          <li><strong>Adresse e-mail</strong> — identifiant de connexion et communication</li>
+          <li><strong>Nom d'utilisateur</strong> — affichage dans l'interface</li>
+          <li><strong>Date de naissance</strong> — vérification de l'âge minimum requis</li>
+          <li><strong>Mot de passe</strong> — stocké sous forme hachée (Argon2id), jamais en clair</li>
+          <li><strong>Date d'inscription et dernière connexion</strong> — gestion du compte</li>
+        </ul>
+        <p>Aucune donnée de navigation, cookie publicitaire ou traceur tiers n'est collecté.</p>
+
+        <h3>3. Finalités et base légale</h3>
+        <table>
+          <thead><tr><th>Finalité</th><th>Base légale</th></tr></thead>
+          <tbody>
+            <tr><td>Création et gestion du compte utilisateur</td><td>Exécution du contrat (CGU acceptées)</td></tr>
+            <tr><td>Authentification et sécurité</td><td>Intérêt légitime</td></tr>
+            <tr><td>Envoi d'e-mails transactionnels (réinitialisation mot de passe)</td><td>Exécution du contrat</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4. Durée de conservation</h3>
+        <ul>
+          <li>Données de compte : conservées tant que le compte est actif</li>
+          <li>Tokens de réinitialisation de mot de passe : supprimés automatiquement à expiration (1 heure)</li>
+          <li>En cas de suppression du compte : toutes les données personnelles sont supprimées immédiatement et définitivement</li>
+        </ul>
+
+        <h3>5. Destinataires des données</h3>
+        <p>Vos données ne sont transmises à aucun tiers. Elles sont accessibles uniquement aux administrateurs du service dans le cadre de la gestion technique du projet.</p>
+
+        <h3>6. Vos droits</h3>
+        <p>Conformément au Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679), vous disposez des droits suivants :</p>
+        <ul>
+          <li><strong>Droit d'accès</strong> (art. 15) — consulter vos données depuis votre espace « Mon compte »</li>
+          <li><strong>Droit de rectification</strong> (art. 16) — modifier vos données depuis « Mon compte »</li>
+          <li><strong>Droit à l'effacement</strong> (art. 17) — supprimer définitivement votre compte et toutes vos données depuis « Mon compte » &gt; « Supprimer mon compte »</li>
+          <li><strong>Droit à la portabilité</strong> (art. 20) — télécharger vos données au format JSON depuis « Mon compte » &gt; « Télécharger mes données »</li>
+          <li><strong>Droit d'opposition</strong> (art. 21) — vous pouvez vous opposer à tout traitement en supprimant votre compte</li>
+        </ul>
+
+        <h3>7. Exercer vos droits</h3>
+        <p>Pour exercer vos droits ou pour toute question relative à vos données personnelles, contactez-nous à :
+        <a href="mailto:cesizen@noreply.com">cesizen@noreply.com</a></p>
+
+        <h3>8. Droit de plainte</h3>
+        <p>Si vous estimez que le traitement de vos données personnelles n'est pas conforme à la réglementation, vous avez le droit d'introduire une réclamation auprès de la
+        <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a> (Commission Nationale de l'Informatique et des Libertés).</p>
 
     - title: "CGU"
       category: "legal"
       isPublished: true
-      content: "<h2>Conditions Générales d'Utilisation</h2><p>En utilisant CesiZen, vous acceptez les présentes conditions. Ce service est réservé à un usage personnel et non commercial.</p><h3>Responsabilité</h3><p>Les exercices proposés sont à titre informatif et ne remplacent pas un avis médical.</p>"
+      content: >
+        <h2>Conditions Générales d'Utilisation</h2>
+        <p>Dernière mise à jour : mars 2026</p>
+
+        <h3>1. Objet</h3>
+        <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du service CesiZen,
+        plateforme de bien-être numérique proposant des exercices de respiration guidés.</p>
+
+        <h3>2. Acceptation</h3>
+        <p>L'utilisation du service implique l'acceptation pleine et entière des présentes CGU.
+        En créant un compte, vous confirmez avoir lu et accepté ces conditions ainsi que notre
+        <a href="/legal/politique-de-confidentialite">politique de confidentialité</a>.</p>
+
+        <h3>3. Accès au service</h3>
+        <p>Le service est accessible à toute personne physique majeure disposant d'une connexion internet.
+        Un compte est nécessaire pour accéder aux fonctionnalités personnalisées.</p>
+
+        <h3>4. Responsabilité de l'utilisateur</h3>
+        <p>L'utilisateur s'engage à :</p>
+        <ul>
+          <li>Fournir des informations exactes lors de l'inscription</li>
+          <li>Maintenir la confidentialité de ses identifiants de connexion</li>
+          <li>Ne pas utiliser le service à des fins commerciales ou illicites</li>
+          <li>Ne pas tenter de porter atteinte à la sécurité ou au bon fonctionnement du service</li>
+        </ul>
+
+        <h3>5. Avertissement médical</h3>
+        <p>Les exercices de respiration proposés sont fournis à titre informatif et pédagogique uniquement.
+        Ils ne constituent pas des conseils médicaux et ne sauraient remplacer l'avis d'un professionnel de santé.
+        En cas de problème de santé, consultez un médecin avant de pratiquer ces exercices.</p>
+
+        <h3>6. Suspension et suppression de compte</h3>
+        <p>L'équipe CesiZen se réserve le droit de suspendre ou supprimer tout compte en cas de non-respect des présentes CGU.
+        L'utilisateur peut à tout moment supprimer son compte depuis son espace personnel, entraînant la suppression définitive de toutes ses données.</p>
+
+        <h3>7. Modification des CGU</h3>
+        <p>CesiZen se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés de toute modification significative.
+        La poursuite de l'utilisation du service après notification vaut acceptation des nouvelles CGU.</p>
+
+        <h3>8. Droit applicable</h3>
+        <p>Les présentes CGU sont soumises au droit français. Tout litige relatif à leur interprétation ou exécution relève de la compétence des tribunaux français.</p>
