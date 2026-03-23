@@ -41,8 +41,14 @@ class CommonOwnProfilCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $deleteAccount = Action::new('deleteAccount', 'Supprimer mon compte', 'fa fa-trash')
+            ->linkToRoute('account_delete')
+            ->setCssClass('btn btn-sm btn-outline btn-error')
+            ->displayIf(fn() => true);
+
         return $actions
-            ->disable(Action::NEW, Action::DELETE);
+            ->disable(Action::NEW, Action::DELETE)
+            ->add(Crud::PAGE_EDIT, $deleteAccount);
     }
 
     public function index(AdminContext $context): KeyValueStore|Response
