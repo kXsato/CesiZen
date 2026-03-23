@@ -13,8 +13,8 @@
 <div class="navbar bg-base-100 shadow-sm">
     <div class="navbar-start">
         <div class="group relative">
-            <button class="btn btn-ghost btn-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button class="btn btn-ghost btn-circle" aria-label="Menu de navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
                 </svg>
             </button>
@@ -24,7 +24,7 @@
                         <li class="group/sub">
                             <a tabindex="0" class="flex justify-between items-center cursor-pointer">
                                 {{ item.label }}
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-200 group-hover/sub:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-200 group-hover/sub:rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                 </svg>
                             </a>
@@ -46,26 +46,26 @@
         </div>
     </div>
     <div class="navbar-center">
-        <a href="{{ path('app_home') }}" class="btn btn-ghost text-xl gap-2">
-            <img src="{{ asset('logo/Logo.svg') }}" alt="" class="h-5 invert dark:invert-0" />
+        <a href="{{ path('app_home') }}" class="btn btn-ghost text-xl gap-2" aria-label="CesiZen – Accueil">
+            <img src="{{ asset('logo/Logo.svg') }}" alt="" class="h-5 invert dark:invert-0" aria-hidden="true" />
             CesiZen
         </a>
     </div>
     <div class="navbar-end">
-        <button class="btn btn-ghost btn-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button class="btn btn-ghost btn-circle" aria-label="Rechercher">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
         </button>
         {% if app.user %}
-            <a href="{{ path('app_logout') }}" class="btn btn-ghost btn-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <a href="{{ path('app_logout') }}" class="btn btn-ghost btn-circle" aria-label="Se déconnecter">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
             </a>
         {% endif %}
         <a href="{% if app.user %}{% if is_granted('ROLE_ADMIN') %}{{ path('admin') }}{% else %}{{ path('user_dashboard') }}{% endif %}{% else %}{{ path('app_login') }}{% endif %}" class="btn btn-ghost gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.966 8.966 0 0112 15c2.347 0 4.496.9 6.121 2.372M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
             {% if app.user %}

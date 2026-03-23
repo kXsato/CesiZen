@@ -43,6 +43,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+    /**
+     * Retourne les utilisateurs sans activité depuis $months mois.
+     * Les admins sont exclus.
+     * @return User[]
+     */
+    public function findStaleUsers(int $months): array
+    {
+        $threshold = new \DateTime("-{$months} months");
+
+        return $this->createQueryBuilder('u')
+            ->where('u.roles NOT LIKE :admin')
+            ->andWhere(
+                '(u.lastLogin IS NOT NULL AND u.lastLogin < :threshold) OR
+                 (u.lastLogin IS NULL AND u.registrationDate < :threshold)'
+            )
+            ->setParameter('admin', '%ROLE_ADMIN%')
+            ->setParameter('threshold', $threshold)
+            ->getQuery()
+            ->getResult();
+    }
+
     /** @return int */
     public function countReactivationRequested(): int
     {

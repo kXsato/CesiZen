@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer mon compte — CesiZen{% endblock %}
+
+{% block body %}
+<div class="flex-1 flex items-center justify-center bg-base-200 py-12 px-4">
+    <div class="card bg-base-100 shadow-md w-full max-w-md">
+        <div class="card-body gap-6">
+            <h1 class="card-title text-2xl text-error">Supprimer mon compte</h1>
+
+            <div class="alert alert-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                </svg>
+                <div>
+                    <p class="font-semibold">Cette action est irréversible.</p>
+                    <p class="text-sm">Toutes vos données personnelles seront définitivement supprimées conformément au RGPD (article 17).</p>
+                </div>
+            </div>
+
+            <p class="text-base-content/70 text-sm">
+                Seront supprimés : votre adresse e-mail, votre nom d'utilisateur, votre date de naissance
+                ainsi que toutes les données associées à votre compte.
+            </p>
+
+            <form method="post" action="{{ path('account_delete') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('account_delete') }}">
+                <div class="flex gap-3 justify-end">
+                    <a href="{{ path('user_dashboard') }}" class="btn btn-ghost">Annuler</a>
+                    <button type="submit" class="btn btn-error">Supprimer définitivement</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

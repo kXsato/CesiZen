@@ -34,7 +34,9 @@ class UserDashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkToRoute('Mon profil', 'fa fa-user', 'user_dashboard');
+
         yield MenuItem::linkToRoute('Déconnexion', 'fa fa-sign-out', 'app_logout');
     }
 }

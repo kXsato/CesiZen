@@ -38,12 +38,13 @@ class AdminDashboardController extends AbstractDashboardController
     {
         $pendingReactivations = $this->userRepository->countReactivationRequested();
 
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'app_home');
         yield MenuItem::linkTo(AdminUserCrudController::class, 'Utilisateurs', 'fa fa-users')
             ->setBadge($pendingReactivations > 0 ? $pendingReactivations : null, 'danger');
         yield MenuItem::linkTo(AdminInfoPageCrudController::class, 'Pages', 'fa fa-file-text');
         yield MenuItem::linkTo(AdminMenuItemCrudController::class, 'Menu', 'fa fa-bars');
         yield MenuItem::linkTo(AdminOwnProfilCrudController::class, 'Mon profil', 'fa fa-user');
+    
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }
 }
