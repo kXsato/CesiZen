@@ -47,6 +47,17 @@ services:
       - db
     restart: unless-stopped
 
+  scheduler:
+    build: .docker/php
+    command: sh -c "while true; do php bin/console app:purge-stale-data --no-interaction; sleep 86400; done"
+    volumes:
+      - .:/var/www/html
+    networks:
+      - app
+    depends_on:
+      - db
+    restart: unless-stopped
+
   mailpit:
     image: axllent/mailpit
     restart: unless-stopped
