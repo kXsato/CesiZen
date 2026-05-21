@@ -26,6 +26,7 @@ class AccountDeletionController extends AbstractController
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('account_delete', $request->getPayload()->getString('_token'))) {
                 $this->addFlash('error', 'Token invalide.');
+
                 return $this->redirectToRoute('account_delete');
             }
 
