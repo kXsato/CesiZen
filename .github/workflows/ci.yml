@@ -125,6 +125,69 @@ jobs:
       - name: Lint Container
         run: php bin/console lint:container --env=test
 
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+
+    services:
+      database:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: app
+          MARIADB_USER: app
+          MARIADB_PASSWORD: app
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      APP_SECRET: "ci-test-secret-not-for-production"
+      DATABASE_URL: "mysql://app:app@127.0.0.1:3306/app?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
+      MESSENGER_TRANSPORT_DSN: "doctrine://default?auto_setup=0"
+      MAILER_DSN: "null://null"
+      PANTHER_NO_SANDBOX: 1
+      PANTHER_CHROME_ARGUMENTS: "--disable-dev-shm-usage"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 8.4
+        uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # v2
+        with:
+          php-version: "8.4"
+          extensions: intl, opcache, pdo_mysql, sodium, zip
+          coverage: none
+          tools: composer:v2
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-php-8.4-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-php-8.4-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-scripts
+
+      - name: Install importmap assets
+        run: php bin/console importmap:install --env=test
+
+      - name: Run database migrations
+        run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
+
+      - name: Run E2E tests
+        run: php bin/phpunit --testsuite="E2E"
+
   security:
     name: Security Audit
     runs-on: ubuntu-latest
