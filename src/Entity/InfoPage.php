@@ -55,7 +55,7 @@ class InfoPage
     private function updateSlug(): void
     {
         if ($this->title) {
-            $this->slug = (new AsciiSlugger())->slug(strtolower($this->title));
+            $this->slug = (new AsciiSlugger())->slug($this->title)->lower();
         }
     }
 

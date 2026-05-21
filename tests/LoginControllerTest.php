@@ -35,6 +35,8 @@ class LoginControllerTest extends WebTestCase
         $passwordHasher = $container->get('security.user_password_hasher');
 
         $user = (new User())->setEmail(self::USER_EMAIL);
+        $user->setUserName('testuser');
+        $user->setBirthDate(new \DateTime('1990-01-01'));
         $user->setPassword($passwordHasher->hashPassword($user, 'password'));
 
         $em->persist($user);
