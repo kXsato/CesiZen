@@ -58,8 +58,8 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                'label'    => false,
-                'mapped'   => false,
+                'label' => false,
+                'mapped' => false,
                 'constraints' => [
                     new IsTrue(message: 'Vous devez accepter les CGU et la politique de confidentialité.'),
                 ],

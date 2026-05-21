@@ -17,7 +17,8 @@ class AdminRedirectListener implements EventSubscriberInterface
     public function __construct(
         private Security $security,
         private RouterInterface $router,
-    ) {}
+    ) {
+    }
 
     public static function getSubscribedEvents(): array
     {

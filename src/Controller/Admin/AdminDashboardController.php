@@ -7,8 +7,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
+use Symfony\Component\HttpFoundation\Response;
 
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class AdminDashboardController extends AbstractDashboardController
@@ -16,7 +16,8 @@ class AdminDashboardController extends AbstractDashboardController
     public function __construct(
         private AdminUrlGenerator $adminUrlGenerator,
         private UserRepository $userRepository,
-    ) {}
+    ) {
+    }
 
     public function index(): Response
     {
@@ -44,7 +45,7 @@ class AdminDashboardController extends AbstractDashboardController
         yield MenuItem::linkTo(AdminInfoPageCrudController::class, 'Pages', 'fa fa-file-text');
         yield MenuItem::linkTo(AdminMenuItemCrudController::class, 'Menu', 'fa fa-bars');
         yield MenuItem::linkTo(AdminOwnProfilCrudController::class, 'Mon profil', 'fa fa-user');
-    
+
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }
 }

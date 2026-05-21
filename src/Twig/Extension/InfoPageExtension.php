@@ -8,7 +8,9 @@ use Twig\Extension\GlobalsInterface;
 
 class InfoPageExtension extends AbstractExtension implements GlobalsInterface
 {
-    public function __construct(private MenuItemRepository $repository) {}
+    public function __construct(private MenuItemRepository $repository)
+    {
+    }
 
     public function getGlobals(): array
     {

@@ -11,7 +11,7 @@ class BreathingExerciseFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $data = Yaml::parseFile(__DIR__ . '/../../config/fixtures/breathing_exercises.yaml');
+        $data = Yaml::parseFile(__DIR__.'/../../config/fixtures/breathing_exercises.yaml');
 
         foreach ($data['breathing_exercises'] as $item) {
             $exercise = (new BreathingExercise())

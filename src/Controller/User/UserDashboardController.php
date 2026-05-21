@@ -12,7 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 #[AdminDashboard(routePath: '/mon-compte', routeName: 'user_dashboard')]
 class UserDashboardController extends AbstractDashboardController
 {
-    public function __construct(private AdminUrlGenerator $adminUrlGenerator) {}
+    public function __construct(private AdminUrlGenerator $adminUrlGenerator)
+    {
+    }
 
     public function index(): Response
     {

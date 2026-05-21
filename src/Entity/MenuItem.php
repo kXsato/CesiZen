@@ -57,27 +57,79 @@ class MenuItem
         if ($this->infoPage) {
             return null; // géré dans Twig via infoPage
         }
+
         return $this->url;
     }
 
-    public function getId(): ?int { return $this->id; }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    public function getLabel(): ?string { return $this->label; }
-    public function setLabel(string $label): static { $this->label = $label; return $this; }
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
 
-    public function getRawUrl(): ?string { return $this->url; }
-    public function setUrl(?string $url): static { $this->url = $url; return $this; }
+    public function setLabel(string $label): static
+    {
+        $this->label = $label;
 
-    public function getSystemRoute(): ?string { return $this->systemRoute; }
-    public function setSystemRoute(?string $systemRoute): static { $this->systemRoute = $systemRoute; return $this; }
+        return $this;
+    }
 
-    public function getInfoPage(): ?InfoPage { return $this->infoPage; }
-    public function setInfoPage(?InfoPage $infoPage): static { $this->infoPage = $infoPage; return $this; }
+    public function getRawUrl(): ?string
+    {
+        return $this->url;
+    }
 
-    public function getParent(): ?self { return $this->parent; }
-    public function setParent(?self $parent): static { $this->parent = $parent; return $this; }
+    public function setUrl(?string $url): static
+    {
+        $this->url = $url;
 
-    public function getChildren(): Collection { return $this->children; }
+        return $this;
+    }
+
+    public function getSystemRoute(): ?string
+    {
+        return $this->systemRoute;
+    }
+
+    public function setSystemRoute(?string $systemRoute): static
+    {
+        $this->systemRoute = $systemRoute;
+
+        return $this;
+    }
+
+    public function getInfoPage(): ?InfoPage
+    {
+        return $this->infoPage;
+    }
+
+    public function setInfoPage(?InfoPage $infoPage): static
+    {
+        $this->infoPage = $infoPage;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): static
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
 
     public function addChild(self $child): static
     {
@@ -85,18 +137,38 @@ class MenuItem
             $this->children->add($child);
             $child->setParent($this);
         }
+
         return $this;
     }
 
     public function removeChild(self $child): static
     {
         $this->children->removeElement($child);
+
         return $this;
     }
 
-    public function getPosition(): int { return $this->position; }
-    public function setPosition(int $position): static { $this->position = $position; return $this; }
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
 
-    public function isActive(): bool { return $this->isActive; }
-    public function setIsActive(bool $isActive): static { $this->isActive = $isActive; return $this; }
+    public function setPosition(int $position): static
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
 }

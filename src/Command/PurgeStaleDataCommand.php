@@ -51,7 +51,7 @@ class PurgeStaleDataCommand extends Command
         if (empty($staleUsers)) {
             $io->info("Aucun compte inactif depuis plus de {$months} mois.");
         } else {
-            $io->section("Comptes inactifs depuis plus de {$months} mois : " . count($staleUsers));
+            $io->section("Comptes inactifs depuis plus de {$months} mois : ".count($staleUsers));
 
             foreach ($staleUsers as $user) {
                 $resetRequests = $this->em->getRepository(ResetPasswordRequest::class)
@@ -61,14 +61,14 @@ class PurgeStaleDataCommand extends Command
                     $this->em->remove($request);
                 }
 
-                $io->text("  Suppression : {$user->getEmail()} (dernière activité : " .
-                    ($user->getLastLogin()?->format('Y-m-d') ?? $user->getRegistrationDate()?->format('Y-m-d')) . ')');
+                $io->text("  Suppression : {$user->getEmail()} (dernière activité : ".
+                    ($user->getLastLogin()?->format('Y-m-d') ?? $user->getRegistrationDate()?->format('Y-m-d')).')');
 
                 $this->em->remove($user);
             }
 
             $this->em->flush();
-            $io->success(count($staleUsers) . ' compte(s) supprimé(s).');
+            $io->success(count($staleUsers).' compte(s) supprimé(s).');
         }
 
         // 2. Suppression des tokens de réinitialisation expirés
@@ -84,7 +84,7 @@ class PurgeStaleDataCommand extends Command
                 $this->em->remove($token);
             }
             $this->em->flush();
-            $io->success(count($expiredTokens) . ' token(s) expiré(s) supprimé(s).');
+            $io->success(count($expiredTokens).' token(s) expiré(s) supprimé(s).');
         } else {
             $io->info('Aucun token expiré à supprimer.');
         }

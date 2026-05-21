@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -90,7 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
-        $roles = array_values(array_filter($roles, fn($r) => $r !== 'ROLE_USER'));
+        $roles = array_values(array_filter($roles, fn ($r) => 'ROLE_USER' !== $r));
         $this->roles = !empty($roles) ? [$roles[0]] : [];
 
         return $this;
@@ -171,14 +169,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getRole(): string
     {
-        $specialRoles = array_filter($this->roles, fn($r) => $r !== 'ROLE_USER');
+        $specialRoles = array_filter($this->roles, fn ($r) => 'ROLE_USER' !== $r);
 
         return !empty($specialRoles) ? reset($specialRoles) : 'ROLE_USER';
     }
 
     public function setRole(string $role): static
     {
-        $this->roles = $role !== 'ROLE_USER' ? [$role] : [];
+        $this->roles = 'ROLE_USER' !== $role ? [$role] : [];
 
         return $this;
     }
@@ -218,5 +216,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }

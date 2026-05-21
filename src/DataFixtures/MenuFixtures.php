@@ -13,7 +13,7 @@ class MenuFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $data = Yaml::parseFile(__DIR__ . '/../../config/fixtures/menu.yaml');
+        $data = Yaml::parseFile(__DIR__.'/../../config/fixtures/menu.yaml');
 
         foreach ($data['menu'] as $itemData) {
             $item = $this->buildItem($itemData);
@@ -40,7 +40,7 @@ class MenuFixtures extends Fixture implements DependentFixtureInterface
 
         if (!empty($data['infoPage'])) {
             /** @var InfoPage $page */
-            $page = $this->getReference('page_' . $data['infoPage'], InfoPage::class);
+            $page = $this->getReference('page_'.$data['infoPage'], InfoPage::class);
             $item->setInfoPage($page);
         }
 
