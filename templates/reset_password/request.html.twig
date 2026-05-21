@@ -19,7 +19,7 @@
 
                 {{ form_start(requestForm, {'attr': {'novalidate': 'novalidate'}}) }}
                 <fieldset class="fieldset">
-                    <label class="label">{{ form_label(requestForm.email) }}</label>
+                    {{ form_label(requestForm.email, null, {'label_attr': {'class': 'label'}}) }}
                     {{ form_widget(requestForm.email, {'attr': {'class': 'input w-full', 'placeholder': 'exemple@email.com'}}) }}
                     {{ form_errors(requestForm.email) }}
 
