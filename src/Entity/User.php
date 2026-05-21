@@ -52,11 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $plainPassword = null;
 
-   
-    public function __construct()
-    {
-    }
-
     #[ORM\PrePersist]
     public function initDatesOnCreate(): void
     {
