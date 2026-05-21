@@ -42,7 +42,7 @@ jobs:
         with:
           php-version: "8.4"
           extensions: intl, opcache, pdo_mysql, sodium, zip
-          coverage: none
+          coverage: pcov
           tools: composer:v2
 
       - name: Get Composer cache directory
@@ -72,7 +72,13 @@ jobs:
         run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
 
       - name: Run PHPUnit
-        run: php bin/phpunit
+        run: php bin/phpunit --coverage-clover coverage.xml --log-junit junit.xml
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   quality:
     name: Code Quality
