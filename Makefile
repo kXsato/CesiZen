@@ -6,9 +6,10 @@ define symfony.console
 endef
 
 .PHONY: help install app.database app.fixtures app.cache app.test \
+        app.analyse app.cs-fix app.cs-check app.security app.lint \
         docker.build docker.up docker.down \
         docker.logs.php docker.logs.db docker.logs.caddy docker.shell.php \
-        app.watch.theme app.build.theme
+        app.watch.theme app.build.theme app.queue
 
 help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
@@ -42,6 +43,23 @@ app.watch.theme: ## Lance le watch Tailwind (mode développement)
 
 app.build.theme: ## Compile le thème Tailwind (production)
 	$(call symfony.console,tailwind:build)
+
+app.analyse: ## Lance PHPStan (analyse statique)
+	$(DOCKER_COMPOSE) exec $(PHP_CONT) php vendor/bin/phpstan analyse --memory-limit=256M
+
+app.cs-fix: ## Corrige le style de code (PHP CS Fixer)
+	$(DOCKER_COMPOSE) exec $(PHP_CONT) php vendor/bin/php-cs-fixer fix
+
+app.cs-check: ## Vérifie le style sans modifier les fichiers
+	$(DOCKER_COMPOSE) exec $(PHP_CONT) php vendor/bin/php-cs-fixer fix --dry-run --diff
+
+app.security: ## Vérifie les vulnérabilités des dépendances
+	$(DOCKER_COMPOSE) exec $(PHP_CONT) composer audit
+
+app.lint: ## Lance lint:twig, lint:yaml, lint:container
+	$(call symfony.console,lint:twig templates/)
+	$(call symfony.console,lint:yaml config/)
+	$(call symfony.console,lint:container)
 
 ## ── Docker ─────────────────────────────────────────────────────────────────
 
