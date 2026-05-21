@@ -11,8 +11,8 @@ class LoginControllerTest extends WebTestCase
 {
     private const USER_EMAIL = 'email@example.com';
     private const SIGN_IN_BUTTON = 'Sign in';
-    private const LOGIN_ROUTE = self::LOGIN_ROUTE;
-    private const ALERT_DANGER = self::ALERT_DANGER;
+    private const LOGIN_ROUTE = '/login';
+    private const ALERT_DANGER = '.alert-danger';
 
     private KernelBrowser $client;
 
