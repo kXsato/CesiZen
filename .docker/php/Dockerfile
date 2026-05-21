@@ -1,4 +1,4 @@
-FROM composer:latest AS composer
+FROM composer:2 AS composer
 
 FROM php:8.4-fpm-alpine
 
@@ -13,9 +13,8 @@ RUN apk add --no-cache \
         opcache \
         pdo_mysql \
         sodium \
-        zip
-
-RUN apk add --no-cache $PHPIZE_DEPS linux-headers \
+        zip \
+    && apk add --no-cache $PHPIZE_DEPS linux-headers \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && apk del $PHPIZE_DEPS
