@@ -2,20 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\AbstractUserCrudController;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -23,7 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
-class AdminUserCrudController extends AbstractCrudController
+class AdminUserCrudController extends AbstractUserCrudController
 {
     public function __construct(
         private UserPasswordHasherInterface $hasher,
@@ -31,27 +24,16 @@ class AdminUserCrudController extends AbstractCrudController
         private MailerInterface $mailer,
     ) {}
 
-    public static function getEntityFqcn(): string
+    protected function filterByCurrentUser(QueryBuilder $qb): void
     {
-        return User::class;
-    }
-
-    public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
-    {
-        $qb = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
-
         $qb->andWhere('entity.id != :currentUser')
             ->setParameter('currentUser', $this->getUser()->getId());
-
-        return $qb;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            EmailField::new('email', 'Adresse e-mail'),
-            TextField::new('userName', 'Nom d\'utilisateur'),
-            DateField::new('birthDate', 'Date de naissance'),
+            ...$this->userBaseFields(),
             ChoiceField::new('roles', 'Rôle(s)')
                 ->setChoices([
                     'Utilisateur' => 'ROLE_USER',
@@ -82,7 +64,6 @@ class AdminUserCrudController extends AbstractCrudController
             return;
         }
 
-        // Définit un mot de passe verrouillé — l'utilisateur devra le créer via l'email envoyé ci-dessous
         $entityInstance->setPassword($this->hasher->hashPassword($entityInstance, bin2hex(random_bytes(32))));
 
         parent::persistEntity($entityManager, $entityInstance);
