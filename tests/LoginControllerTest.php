@@ -11,6 +11,8 @@ class LoginControllerTest extends WebTestCase
 {
     private const USER_EMAIL = 'email@example.com';
     private const SIGN_IN_BUTTON = 'Sign in';
+    private const LOGIN_ROUTE = self::LOGIN_ROUTE;
+    private const ALERT_DANGER = self::ALERT_DANGER;
 
     private KernelBrowser $client;
 
@@ -42,7 +44,7 @@ class LoginControllerTest extends WebTestCase
     public function testLogin(): void
     {
         // Denied - Can't login with invalid email address.
-        $this->client->request('GET', '/login');
+        $this->client->request('GET', self::LOGIN_ROUTE);
         self::assertResponseIsSuccessful();
 
         $this->client->submitForm(self::SIGN_IN_BUTTON, [
@@ -50,14 +52,14 @@ class LoginControllerTest extends WebTestCase
             '_password' => 'password',
         ]);
 
-        self::assertResponseRedirects('/login');
+        self::assertResponseRedirects(self::LOGIN_ROUTE);
         $this->client->followRedirect();
 
         // Ensure we do not reveal if the user exists or not.
-        self::assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
+        self::assertSelectorTextContains(self::ALERT_DANGER, 'Invalid credentials.');
 
         // Denied - Can't login with invalid password.
-        $this->client->request('GET', '/login');
+        $this->client->request('GET', self::LOGIN_ROUTE);
         self::assertResponseIsSuccessful();
 
         $this->client->submitForm(self::SIGN_IN_BUTTON, [
@@ -65,11 +67,11 @@ class LoginControllerTest extends WebTestCase
             '_password' => 'bad-password',
         ]);
 
-        self::assertResponseRedirects('/login');
+        self::assertResponseRedirects(self::LOGIN_ROUTE);
         $this->client->followRedirect();
 
         // Ensure we do not reveal the user exists but the password is wrong.
-        self::assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
+        self::assertSelectorTextContains(self::ALERT_DANGER, 'Invalid credentials.');
 
         // Success - Login with valid credentials is allowed.
         $this->client->submitForm(self::SIGN_IN_BUTTON, [
@@ -80,6 +82,6 @@ class LoginControllerTest extends WebTestCase
         self::assertResponseRedirects('/');
         $this->client->followRedirect();
 
-        self::assertSelectorNotExists('.alert-danger');
+        self::assertSelectorNotExists(self::ALERT_DANGER);
     }
 }
