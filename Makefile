@@ -15,6 +15,11 @@ help: ## Affiche cette aide
 	@grep -E '^[a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
 install: ## Installe le projet (build, up, composer, theme, bdd, fixtures)
+	@if [ ! -f .env.dev ]; then \
+		cp .env.dev.dist .env.dev; \
+		echo "\033[33mATTENTION : .env.dev créé depuis .env.dev.dist — définissez APP_SECRET avant de continuer.\033[0m"; \
+		exit 1; \
+	fi
 	$(MAKE) docker.build
 	$(MAKE) docker.up
 	$(DOCKER_COMPOSE) exec $(PHP_CONT) composer install
