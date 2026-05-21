@@ -9,6 +9,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class LoginControllerTest extends WebTestCase
 {
+    private const USER_EMAIL = 'email@example.com';
+    private const SIGN_IN_BUTTON = 'Sign in';
+
     private KernelBrowser $client;
 
     protected function setUp(): void
@@ -29,7 +32,7 @@ class LoginControllerTest extends WebTestCase
         /** @var UserPasswordHasherInterface $passwordHasher */
         $passwordHasher = $container->get('security.user_password_hasher');
 
-        $user = (new User())->setEmail('email@example.com');
+        $user = (new User())->setEmail(self::USER_EMAIL);
         $user->setPassword($passwordHasher->hashPassword($user, 'password'));
 
         $em->persist($user);
@@ -42,7 +45,7 @@ class LoginControllerTest extends WebTestCase
         $this->client->request('GET', '/login');
         self::assertResponseIsSuccessful();
 
-        $this->client->submitForm('Sign in', [
+        $this->client->submitForm(self::SIGN_IN_BUTTON, [
             '_username' => 'doesNotExist@example.com',
             '_password' => 'password',
         ]);
@@ -57,8 +60,8 @@ class LoginControllerTest extends WebTestCase
         $this->client->request('GET', '/login');
         self::assertResponseIsSuccessful();
 
-        $this->client->submitForm('Sign in', [
-            '_username' => 'email@example.com',
+        $this->client->submitForm(self::SIGN_IN_BUTTON, [
+            '_username' => self::USER_EMAIL,
             '_password' => 'bad-password',
         ]);
 
@@ -69,8 +72,8 @@ class LoginControllerTest extends WebTestCase
         self::assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
 
         // Success - Login with valid credentials is allowed.
-        $this->client->submitForm('Sign in', [
-            '_username' => 'email@example.com',
+        $this->client->submitForm(self::SIGN_IN_BUTTON, [
+            '_username' => self::USER_EMAIL,
             '_password' => 'password',
         ]);
 

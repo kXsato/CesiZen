@@ -30,7 +30,7 @@ document.addEventListener("turbo:load", () => {
     const sessionCountdown = document.getElementById("session-countdown");
 
     if (container && water && phaseLabel && phaseCountdown && btnStart && btnStop) {
-        init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop, sessionTimerEl, sessionCountdown);
+        init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop, { timerEl: sessionTimerEl, countdown: sessionCountdown });
     }
 });
 
@@ -40,10 +40,12 @@ function formatTime(seconds) {
     return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-function init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop, sessionTimerEl, sessionCountdown) {
-    const INSPIRATION = parseInt(container.dataset.inspiration, 10);
-    const APNEA = parseInt(container.dataset.apnea, 10);
-    const EXPIRATION = parseInt(container.dataset.expiration, 10);
+function init(container, water, phaseLabel, phaseCountdown, btnStart, btnStop, session) {
+    const sessionTimerEl = session.timerEl;
+    const sessionCountdown = session.countdown;
+    const INSPIRATION = Number.parseInt(container.dataset.inspiration, 10);
+    const APNEA = Number.parseInt(container.dataset.apnea, 10);
+    const EXPIRATION = Number.parseInt(container.dataset.expiration, 10);
 
     const phases = [];
     phases.push({
