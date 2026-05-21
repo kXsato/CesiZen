@@ -20,3 +20,5 @@ RUN apk add --no-cache \
     && apk del $PHPIZE_DEPS
 
 COPY usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
+
+USER www-data
