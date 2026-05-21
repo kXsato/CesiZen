@@ -20,10 +20,7 @@ class PurgeStaleDataCommandTest extends TestCase
      */
     private function mockQueryBuilder(array $results): QueryBuilder
     {
-        $query = $this->getMockBuilder(AbstractQuery::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['getResult'])
-            ->getMockForAbstractClass();
+        $query = $this->createMock(AbstractQuery::class);
         $query->method('getResult')->willReturn($results);
 
         $qb = $this->getMockBuilder(QueryBuilder::class)
