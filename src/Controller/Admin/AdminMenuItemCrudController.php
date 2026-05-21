@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\MenuItem;
 use Doctrine\ORM\EntityManagerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -33,9 +33,9 @@ class AdminMenuItemCrudController extends AbstractCrudController
         yield TextField::new('label', 'Libellé');
         yield ChoiceField::new('systemRoute', 'Lien système')
             ->setChoices([
-                'Connexion'    => 'app_login',
-                'Inscription'  => 'app_register',
-                'Mon compte'   => 'user_dashboard',
+                'Connexion' => 'app_login',
+                'Inscription' => 'app_register',
+                'Mon compte' => 'user_dashboard',
                 'Administration' => 'admin',
             ])
             ->setRequired(false)

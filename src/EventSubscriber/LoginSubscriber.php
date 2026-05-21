@@ -9,7 +9,9 @@ use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
 class LoginSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private EntityManagerInterface $em) {}
+    public function __construct(private EntityManagerInterface $em)
+    {
+    }
 
     public static function getSubscribedEvents(): array
     {

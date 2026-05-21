@@ -16,7 +16,7 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $data = Yaml::parseFile(__DIR__ . '/../../config/fixtures/users.yaml');
+        $data = Yaml::parseFile(__DIR__.'/../../config/fixtures/users.yaml');
 
         foreach ($data['users'] as $userData) {
             $user = new User();
@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
             }
 
             $manager->persist($user);
-            $this->addReference('user_' . $userData['userName'], $user);
+            $this->addReference('user_'.$userData['userName'], $user);
         }
 
         $manager->flush();

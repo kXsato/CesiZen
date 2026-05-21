@@ -16,7 +16,8 @@ class CommonOwnProfilCrudController extends AbstractUserCrudController
 {
     public function __construct(
         private AdminUrlGenerator $adminUrlGenerator,
-    ) {}
+    ) {
+    }
 
     public function configureCrud(Crud $crud): Crud
     {

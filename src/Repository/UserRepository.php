@@ -38,7 +38,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.roles LIKE :role')
-            ->setParameter('role', '%"' . $role . '"%')
+            ->setParameter('role', '%"'.$role.'"%')
             ->getQuery()
             ->getResult();
     }
@@ -46,6 +46,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Retourne les utilisateurs sans activité depuis $months mois.
      * Les admins sont exclus.
+     *
      * @return User[]
      */
     public function findStaleUsers(int $months): array
@@ -64,7 +65,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
-    /** @return int */
     public function countReactivationRequested(): int
     {
         return (int) $this->createQueryBuilder('u')
@@ -73,5 +73,4 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getSingleScalarResult();
     }
-
 }

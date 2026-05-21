@@ -22,12 +22,12 @@ class AccountExportController extends AbstractController
         $data = [
             'exported_at' => (new \DateTime())->format(\DateTime::ATOM),
             'données_personnelles' => [
-                'email'              => $user->getEmail(),
-                'nom_utilisateur'    => $user->getUserName(),
-                'date_de_naissance'  => $user->getBirthDate()?->format('Y-m-d'),
-                'date_inscription'   => $user->getRegistrationDate()?->format(\DateTime::ATOM),
+                'email' => $user->getEmail(),
+                'nom_utilisateur' => $user->getUserName(),
+                'date_de_naissance' => $user->getBirthDate()?->format('Y-m-d'),
+                'date_inscription' => $user->getRegistrationDate()?->format(\DateTime::ATOM),
                 'dernière_connexion' => $user->getLastLogin()?->format(\DateTime::ATOM),
-                'rôles'              => $user->getRoles(),
+                'rôles' => $user->getRoles(),
             ],
         ];
 

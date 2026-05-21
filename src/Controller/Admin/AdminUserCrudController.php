@@ -22,7 +22,8 @@ class AdminUserCrudController extends AbstractUserCrudController
         private UserPasswordHasherInterface $hasher,
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private MailerInterface $mailer,
-    ) {}
+    ) {
+    }
 
     protected function filterByCurrentUser(QueryBuilder $qb): void
     {
@@ -61,6 +62,7 @@ class AdminUserCrudController extends AbstractUserCrudController
     {
         if (!$entityInstance instanceof User) {
             parent::persistEntity($entityManager, $entityInstance);
+
             return;
         }
 

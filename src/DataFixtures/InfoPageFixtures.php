@@ -12,7 +12,7 @@ class InfoPageFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $data = Yaml::parseFile(__DIR__ . '/../../config/fixtures/pages.yaml');
+        $data = Yaml::parseFile(__DIR__.'/../../config/fixtures/pages.yaml');
 
         foreach ($data['pages'] as $pageData) {
             $page = (new InfoPage())
@@ -22,7 +22,7 @@ class InfoPageFixtures extends Fixture
                 ->setIsPublished($pageData['isPublished']);
 
             $manager->persist($page);
-            $this->addReference('page_' . $pageData['title'], $page);
+            $this->addReference('page_'.$pageData['title'], $page);
         }
 
         $manager->flush();
