@@ -28,7 +28,7 @@ class AdminUserCrudController extends AbstractUserCrudController
     protected function filterByCurrentUser(QueryBuilder $qb): void
     {
         $qb->andWhere('entity.id != :currentUser')
-            ->setParameter('currentUser', $this->getUser()->getId());
+            ->setParameter('currentUser', $this->getCurrentUser()->getId());
     }
 
     public function configureFields(string $pageName): iterable
