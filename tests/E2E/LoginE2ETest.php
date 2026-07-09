@@ -26,13 +26,13 @@ class LoginE2ETest extends PantherTestCase
         $client->waitFor('input[name="_username"]', 5);
         $crawler = $client->refreshCrawler();
 
-        $form = $crawler->selectButton('Sign in')->form([
+        $form = $crawler->selectButton('Se connecter')->form([
             '_username' => 'nobody@example.com',
             '_password' => 'wrong-password',
         ]);
         $client->submit($form);
 
-        $client->waitFor('.alert-danger', 5);
-        self::assertSelectorTextContains('.alert-danger', 'Invalid credentials.');
+        $client->waitFor('.alert-error', 5);
+        self::assertSelectorTextContains('.alert-error', 'Identifiants invalides.');
     }
 }

@@ -10,9 +10,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class LoginControllerTest extends WebTestCase
 {
     private const USER_EMAIL = 'email@example.com';
-    private const SIGN_IN_BUTTON = 'Sign in';
+    private const SIGN_IN_BUTTON = 'Se connecter';
     private const LOGIN_ROUTE = '/login';
-    private const ALERT_DANGER = '.alert-danger';
+    private const ALERT_DANGER = '.alert-error';
+    private const INVALID_CREDENTIALS = 'Identifiants invalides.';
 
     private KernelBrowser $client;
 
@@ -58,7 +59,7 @@ class LoginControllerTest extends WebTestCase
         $this->client->followRedirect();
 
         // Ensure we do not reveal if the user exists or not.
-        self::assertSelectorTextContains(self::ALERT_DANGER, 'Invalid credentials.');
+        self::assertSelectorTextContains(self::ALERT_DANGER, self::INVALID_CREDENTIALS);
 
         // Denied - Can't login with invalid password.
         $this->client->request('GET', self::LOGIN_ROUTE);
@@ -73,7 +74,7 @@ class LoginControllerTest extends WebTestCase
         $this->client->followRedirect();
 
         // Ensure we do not reveal the user exists but the password is wrong.
-        self::assertSelectorTextContains(self::ALERT_DANGER, 'Invalid credentials.');
+        self::assertSelectorTextContains(self::ALERT_DANGER, self::INVALID_CREDENTIALS);
 
         // Success - Login with valid credentials is allowed.
         $this->client->submitForm(self::SIGN_IN_BUTTON, [

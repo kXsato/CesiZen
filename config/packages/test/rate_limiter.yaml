@@ -1,0 +1,8 @@
+framework:
+    rate_limiter:
+        login:
+            cache_pool: cache.rate_limiter.test
+        register:
+            cache_pool: cache.rate_limiter.test
+        reset_password:
+            cache_pool: cache.rate_limiter.test
