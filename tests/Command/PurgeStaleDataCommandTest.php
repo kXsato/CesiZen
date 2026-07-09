@@ -6,9 +6,9 @@ use App\Command\PurgeStaleDataCommand;
 use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use App\Repository\UserRepository;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -20,7 +20,7 @@ class PurgeStaleDataCommandTest extends TestCase
      */
     private function mockQueryBuilder(array $results): QueryBuilder
     {
-        $query = $this->createMock(AbstractQuery::class);
+        $query = $this->createMock(Query::class);
         $query->method('getResult')->willReturn($results);
 
         $qb = $this->getMockBuilder(QueryBuilder::class)

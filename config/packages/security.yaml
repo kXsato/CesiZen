@@ -54,3 +54,9 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+        firewalls:
+            main:
+                # Use an in-memory cache pool so login throttling state doesn't
+                # persist across separate test runs (see config/packages/test/cache.yaml).
+                login_throttling:
+                    cache_pool: cache.rate_limiter.test
