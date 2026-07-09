@@ -2,6 +2,7 @@
 
 namespace App\Controller\User;
 
+use App\Controller\GetsCurrentUserTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -12,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 #[AdminDashboard(routePath: '/mon-compte', routeName: 'user_dashboard')]
 class UserDashboardController extends AbstractDashboardController
 {
+    use GetsCurrentUserTrait;
+
     public function __construct(private AdminUrlGenerator $adminUrlGenerator)
     {
     }
@@ -22,7 +25,7 @@ class UserDashboardController extends AbstractDashboardController
             ->setDashboard(self::class)
             ->setController(UserOwnProfilCrudController::class)
             ->setAction('edit')
-            ->setEntityId($this->getUser()->getId())
+            ->setEntityId($this->getCurrentUser()->getId())
             ->generateUrl();
 
         return $this->redirect($url);

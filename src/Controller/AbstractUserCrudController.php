@@ -15,6 +15,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 abstract class AbstractUserCrudController extends AbstractCrudController
 {
+    use GetsCurrentUserTrait;
+
     public static function getEntityFqcn(): string
     {
         return User::class;
