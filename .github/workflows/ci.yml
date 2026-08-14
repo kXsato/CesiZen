@@ -212,14 +212,6 @@ jobs:
       - name: Run E2E tests
         run: php bin/phpunit --testsuite="E2E"
 
-      - name: Upload Panther debug artifacts
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: panther-debug
-          path: var/error-screenshots/
-          if-no-files-found: warn
-
   security:
     name: Security Audit
     runs-on: ubuntu-latest
