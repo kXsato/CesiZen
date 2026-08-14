@@ -24,7 +24,7 @@ class InfoPage
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $content = null;
+    private string $content;
 
     #[ORM\Column(enumType: InfoPageCategory::class)]
     private InfoPageCategory $category = InfoPageCategory::PAGE;
@@ -86,7 +86,7 @@ class InfoPage
         return $this->slug;
     }
 
-    public function getContent(): ?string
+    public function getContent(): string
     {
         return $this->content;
     }

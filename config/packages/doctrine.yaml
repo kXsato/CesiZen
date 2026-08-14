@@ -29,6 +29,15 @@ when@test:
             # "TEST_TOKEN" is typically set by ParaTest
             dbname_suffix: '_test%env(default::TEST_TOKEN)%'
 
+# Le serveur web lancé par Symfony Panther (symfony/panther) tourne sous
+# APP_ENV=panther (voir PANTHER_APP_ENV dans .env.test), pas sous "test".
+# Sans cet override, il se connecterait à la base "app" au lieu de "app_test",
+# qui n'est jamais créée/migrée, causant une erreur 500 sur chaque requête.
+when@panther:
+    doctrine:
+        dbal:
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
 when@prod:
     doctrine:
         orm:
