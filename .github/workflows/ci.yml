@@ -203,6 +203,9 @@ jobs:
       - name: Run database migrations
         run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
 
+      - name: Warm Symfony cache (panther env)
+        run: php bin/console cache:warmup --env=panther
+
       - name: Run E2E tests
         run: php bin/phpunit --testsuite="E2E"
 
