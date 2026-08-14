@@ -32,6 +32,7 @@ class MenuItem
     #[ORM\JoinColumn(nullable: true, onDelete: 'CASCADE')]
     private ?self $parent = null;
 
+    /** @var Collection<int, self> */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent', cascade: ['persist', 'remove'])]
     #[ORM\OrderBy(['position' => 'ASC'])]
     private Collection $children;

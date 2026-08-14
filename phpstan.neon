@@ -6,3 +6,27 @@ parameters:
         containerXmlPath: var/cache/test/App_KernelTestDebugContainer.xml
     doctrine:
         objectManagerLoader: tests/object-manager.php
+    ignoreErrors:
+        # Ces propriétés sont volontairement nullable côté PHP (état "vierge" avant
+        # persist : hook de cycle de vie non encore déclenché, ou entité pas encore
+        # remplie par un formulaire) alors que la colonne DB est NOT NULL, garantie
+        # respectée au moment du flush(). Comportement couvert par les tests
+        # unitaires des entités concernées (ex: InfoPageTest::testCreatedAtIsNullBeforeInit).
+        -
+            message: '#^Property App\\Entity\\User::\$registrationDate type mapping mismatch#'
+            path: src/Entity/User.php
+        -
+            message: '#^Property App\\Entity\\InfoPage::\$title type mapping mismatch#'
+            path: src/Entity/InfoPage.php
+        -
+            message: '#^Property App\\Entity\\InfoPage::\$slug type mapping mismatch#'
+            path: src/Entity/InfoPage.php
+        -
+            message: '#^Property App\\Entity\\InfoPage::\$createdAt type mapping mismatch#'
+            path: src/Entity/InfoPage.php
+        -
+            message: '#^Property App\\Entity\\BreathingExercise::\$name type mapping mismatch#'
+            path: src/Entity/BreathingExercise.php
+        -
+            message: '#^Property App\\Entity\\MenuItem::\$label type mapping mismatch#'
+            path: src/Entity/MenuItem.php

@@ -22,19 +22,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    private ?string $email = null;
+    private string $email;
 
     #[ORM\Column]
     private array $roles = [];
 
     #[ORM\Column]
-    private ?string $password = null;
+    private string $password;
 
     #[ORM\Column(length: 255)]
-    private ?string $userName = null;
+    private string $userName;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $birthDate = null;
+    private \DateTime $birthDate;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTime $lastLogin = null;
@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -94,7 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -119,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $data;
     }
 
-    public function getUserName(): ?string
+    public function getUserName(): string
     {
         return $this->userName;
     }
@@ -131,7 +131,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTime
+    public function getBirthDate(): \DateTime
     {
         return $this->birthDate;
     }

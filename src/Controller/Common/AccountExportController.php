@@ -24,7 +24,7 @@ class AccountExportController extends AbstractController
             'données_personnelles' => [
                 'email' => $user->getEmail(),
                 'nom_utilisateur' => $user->getUserName(),
-                'date_de_naissance' => $user->getBirthDate()?->format('Y-m-d'),
+                'date_de_naissance' => $user->getBirthDate()->format('Y-m-d'),
                 'date_inscription' => $user->getRegistrationDate()?->format(\DateTime::ATOM),
                 'dernière_connexion' => $user->getLastLogin()?->format(\DateTime::ATOM),
                 'rôles' => $user->getRoles(),
