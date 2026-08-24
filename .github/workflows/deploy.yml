@@ -35,6 +35,7 @@ jobs:
           $COMPOSE run --rm php composer install --no-dev --optimize-autoloader --no-interaction
           $COMPOSE run --rm php php bin/console importmap:install --env=prod
           $COMPOSE run --rm php php bin/console tailwind:build --env=prod
+          $COMPOSE run --rm php php bin/console asset-map:compile --env=prod
           $COMPOSE run --rm php php bin/console cache:clear --env=prod
 
       - name: Run database migrations
