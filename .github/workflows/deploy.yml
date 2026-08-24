@@ -1,5 +1,11 @@
 name: Deploy
 
+# SÉCURITÉ (dépôt public + runner self-hosted) : ce workflow ne doit JAMAIS être
+# déclenché par un événement `pull_request`/`pull_request_target`. Un tel
+# déclencheur permettrait à n'importe quelle PR externe d'exécuter du code
+# arbitraire sur le serveur de production via ce runner. Le déclencheur doit
+# rester strictement limité à `push` sur `main`, qui nécessite déjà un accès
+# en écriture au dépôt.
 on:
   push:
     branches:
