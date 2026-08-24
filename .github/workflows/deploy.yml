@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy to production
+    runs-on: [self-hosted, cesizen-prod]
+
+    env:
+      COMPOSE: docker compose --env-file .env --env-file /home/sato/cesizen-secrets/.env.prod.local -f compose.yaml -f compose.prod.yaml
+
+    steps:
+      - name: Pull latest main
+        run: |
+          cd /home/sato/cesizen
+          git fetch origin main
+          git reset --hard origin/main
+
+      - name: Build images
+        run: cd /home/sato/cesizen && $COMPOSE build php message-queue scheduler caddy
+
+      - name: Start database
+        run: cd /home/sato/cesizen && $COMPOSE up -d db
+
+      - name: Install dependencies and build assets
+        run: |
+          cd /home/sato/cesizen
+          $COMPOSE run --rm php composer install --no-dev --optimize-autoloader --no-interaction
+          $COMPOSE run --rm php php bin/console importmap:install --env=prod
+          $COMPOSE run --rm php php bin/console tailwind:build --env=prod
+          $COMPOSE run --rm php php bin/console cache:clear --env=prod
+
+      - name: Run database migrations
+        run: cd /home/sato/cesizen && $COMPOSE run --rm php php bin/console doctrine:migrations:migrate -n --env=prod
+
+      - name: Restart services
+        run: cd /home/sato/cesizen && $COMPOSE up -d php db caddy message-queue scheduler
+
+      - name: Clean up old images
+        run: docker image prune -f

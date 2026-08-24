@@ -1,0 +1,38 @@
+services:
+  php:
+    user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
+    environment:
+      XDEBUG_MODE: "off"
+    volumes: !override
+      - .:/var/www/html
+      - ${PROD_SECRETS_FILE:-/home/sato/cesizen-secrets/.env.prod.local}:/var/www/html/.env.prod.local:ro
+
+  message-queue:
+    user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
+    environment:
+      XDEBUG_MODE: "off"
+    volumes: !override
+      - .:/var/www/html
+      - ${PROD_SECRETS_FILE:-/home/sato/cesizen-secrets/.env.prod.local}:/var/www/html/.env.prod.local:ro
+
+  scheduler:
+    user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
+    environment:
+      XDEBUG_MODE: "off"
+    volumes: !override
+      - .:/var/www/html
+      - ${PROD_SECRETS_FILE:-/home/sato/cesizen-secrets/.env.prod.local}:/var/www/html/.env.prod.local:ro
+
+  db:
+    ports: !override []
+
+  caddy:
+    ports: !override
+      - "127.0.0.1:8091:80"
+    volumes: !override
+      - .:/var/www/html
+      - ./.docker/caddy/etc/caddy/Caddyfile.prod:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+  mailpit: !reset null
