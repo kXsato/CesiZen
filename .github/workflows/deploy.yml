@@ -35,10 +35,21 @@ jobs:
           $COMPOSE run --rm php composer install --no-dev --optimize-autoloader --no-interaction
           $COMPOSE run --rm php php bin/console importmap:install --env=prod
           $COMPOSE run --rm php php bin/console tailwind:build --env=prod
+          $COMPOSE run --rm php php bin/console asset-map:compile --env=prod
           $COMPOSE run --rm php php bin/console cache:clear --env=prod
 
       - name: Run database migrations
         run: cd /home/sato/cesizen && $COMPOSE run --rm php php bin/console doctrine:migrations:migrate -n --env=prod
+
+      # Démo uniquement : recharge les fixtures à chaque déploiement, ce qui purge
+      # et régénère toutes les données. À retirer si de vraies données doivent être conservées.
+      - name: Reload demo fixtures
+        run: |
+          cd /home/sato/cesizen
+          $COMPOSE run --rm php composer install --no-interaction
+          $COMPOSE run --rm php sh -c ". /var/www/html/.env.prod.local; export DATABASE_URL APP_SECRET; php bin/console doctrine:fixtures:load -n --env=dev"
+          $COMPOSE run --rm php composer install --no-dev --optimize-autoloader --no-interaction
+          $COMPOSE run --rm php php bin/console cache:clear --env=prod
 
       - name: Restart services
         run: cd /home/sato/cesizen && $COMPOSE up -d php db caddy message-queue scheduler
