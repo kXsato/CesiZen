@@ -1,13 +1,16 @@
 services:
   php:
+    user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
     environment:
       XDEBUG_MODE: "off"
 
   message-queue:
+    user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
     environment:
       XDEBUG_MODE: "off"
 
   scheduler:
+    user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
     environment:
       XDEBUG_MODE: "off"
 
