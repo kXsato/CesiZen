@@ -3,16 +3,25 @@ services:
     user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
     environment:
       XDEBUG_MODE: "off"
+    volumes: !override
+      - .:/var/www/html
+      - ${PROD_SECRETS_FILE:-/home/sato/cesizen-secrets/.env.prod.local}:/var/www/html/.env.prod.local:ro
 
   message-queue:
     user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
     environment:
       XDEBUG_MODE: "off"
+    volumes: !override
+      - .:/var/www/html
+      - ${PROD_SECRETS_FILE:-/home/sato/cesizen-secrets/.env.prod.local}:/var/www/html/.env.prod.local:ro
 
   scheduler:
     user: "${DEPLOY_UID:-1000}:${DEPLOY_GID:-1000}"
     environment:
       XDEBUG_MODE: "off"
+    volumes: !override
+      - .:/var/www/html
+      - ${PROD_SECRETS_FILE:-/home/sato/cesizen-secrets/.env.prod.local}:/var/www/html/.env.prod.local:ro
 
   db:
     ports: !override []
