@@ -28,7 +28,7 @@ services:
 
   caddy:
     ports: !override
-      - "127.0.0.1:8091:80"
+      - "8091:80"
     volumes: !override
       - .:/var/www/html
       - ./.docker/caddy/etc/caddy/Caddyfile.prod:/etc/caddy/Caddyfile
